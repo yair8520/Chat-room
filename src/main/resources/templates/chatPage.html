@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="chatScript.js"></script>
+
+    <link rel="stylesheet" href="chatCss.css"/>
+
+</head>
+<body>
+<div class="chat_window">
+    <h1><span th:text="'Hello, ' + ${f_name}+' '+ ${l_name}"></span></h1>
+    <div class="top_menu">
+        <div class="buttons">
+            <div class="button close"></div>
+            <div class="button minimize"></div>
+            <div class="button maximize"></div>
+        </div>
+        <div class="title">Chat</div>
+    </div>
+    <ul class="messages" id="wall"></ul>
+
+
+    <form action="/chat/newMessage" method="post">
+        <div class="bottom_wrapper clearfix">
+            <div class="message_input_wrapper">
+                <input class="message_input" id="message_input" name="message_input" placeholder="Type your message here..."/>
+            </div>
+            <div class="send_message" id="send_message">
+                <div class="icon"></div>
+                <div class="text"><input type="submit" display="block" class="text" >Send</div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="message_template">
+    <li class="message">
+        <div class="avatar"></div>
+        <div class="text_wrapper">
+            <div class="text"></div>
+        </div>
+    </li>
+</div>
+</body>
+</html>
