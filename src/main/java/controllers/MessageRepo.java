@@ -9,6 +9,7 @@ import java.util.List;
 public interface MessageRepo extends JpaRepository<Message,Long> {
 
      List<Message> findById(long id);
+     List<Message> findTop5ById();
 
 }
 
