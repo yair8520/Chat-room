@@ -6,10 +6,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.annotation.Resource;
+
 
 @RestController
 public class loginController {
     private final UserServices userServices;
+
+
+    @Resource(name = "id")
+     UserData sessionScopeId;
 
     @Autowired
     public loginController(UserServices userServices) {
@@ -23,18 +29,18 @@ public class loginController {
 
 
 
-
-
    @RequestMapping(value = "/login", method = RequestMethod.POST)
    public ModelAndView  setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
 
-       //session
+
        User user = new User(first_name,last_name);
        long id=this.userServices.addUser(user);
 
+      sessionScopeId.setId(id);
+
+
        ModelAndView modelAndView =  new ModelAndView("redirect:/chat");
-       modelAndView.addObject("id" , id);
        return modelAndView;
 
    }

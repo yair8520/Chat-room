@@ -1,10 +1,7 @@
 package controllers;
 
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -14,15 +11,15 @@ public class Message {
     }
 
     private String message;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Basic
-    private java.sql.Timestamp timestamp;
 
-    public Message(String message, long id) {
+    private long user_id;
+
+    public Message(String message, long user_id) {
         this.message = message;
-        this.id = id;
+        this.user_id = user_id;
     }
 
     public String getMessage() {
@@ -33,7 +30,6 @@ public class Message {
         this.message = message;
     }
 
-
     public long getId() {
         return id;
     }
@@ -42,8 +38,7 @@ public class Message {
         this.id = id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public long getUser_id() {return user_id; }
 
+    public void setUser_id(long user_id) { this.user_id = user_id; }
 }
