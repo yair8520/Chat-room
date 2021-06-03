@@ -23,19 +23,21 @@
         </div>
         <div class="title">Chat</div>
     </div>
-   <!-- <ul class="messages" id="wall" th:if="${topFiveMessages.isEmpty()}">
-       <li>No new messages</li>
-    </ul>
-    <ul class="messages"  th:each="user : ${topFiveMessages}">
-            <li th:text="${topFiveMessages}"></li>
-            <li th:text="${topFiveMessages}"></li>
-    </ul>-->
-    <form id="form">
+
+
+
+
+
+    <ul class="messages" id="wall"></ul>
+
+
+
+    <form id="form" >
         <div class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
                 <input class="message_input" id="message_input" name="message_input" placeholder="Type your message here..."/>
             </div>
-            <input type="button" display="block" class="send_message icon text" value="send" id="submitButton" >
+            <input type="submit"  class="send_message icon text" value="send" id="submitButton" >
         </div>
     </form>
 </div>

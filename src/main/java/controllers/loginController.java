@@ -15,7 +15,7 @@ public class loginController {
 
 
     @Resource(name = "id")
-     UserData sessionScopeId;
+    UserData sessionScopeId;
 
     @Autowired
     public loginController(UserServices userServices) {
@@ -28,21 +28,17 @@ public class loginController {
     }
 
 
-
-   @RequestMapping(value = "/login", method = RequestMethod.POST)
-   public ModelAndView  setUser(@RequestParam(name = "firstName") String first_name,
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
+        User user = new User(first_name, last_name);
+        long id = this.userServices.addUser(user);
+        sessionScopeId.setId(id);
 
 
-       User user = new User(first_name,last_name);
-       long id=this.userServices.addUser(user);
+        ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+        return modelAndView;
 
-      sessionScopeId.setId(id);
-
-
-       ModelAndView modelAndView =  new ModelAndView("redirect:/chat");
-       return modelAndView;
-
-   }
+    }
 
 }
