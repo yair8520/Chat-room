@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 @Controller
 public class ChatController {
@@ -39,21 +40,6 @@ public class ChatController {
         return "chatPage";
     }
 
-    @RequestMapping(value = "/chat", method = RequestMethod.POST)
-    public String chatPage1(Model model) {
-        System.out.println("post");
-        return "chatPage";
-    }
-    @RequestMapping(value = "/chat/newMessage", method = RequestMethod.POST)
-    public String new_message(@RequestParam (name="message_input") String message, Model model) {
-        long id=sessionScopeId.getId();
-        Message new_message=new Message(message,id);
-        messageServices.addMessage(new_message);
-        insert_name_user(model);
-        var messageArray=add_authors();
-        model.addAttribute("topFiveMessages",messageArray);
-        return "chatPage";
-    }
 
     private void insert_name_user(Model model)
     {
@@ -62,18 +48,6 @@ public class ChatController {
         model.addAttribute("l_name", s.get().getLastName());
     }
 
-    private ArrayList<MessagePair> add_authors()
-    {
-        ArrayList<MessagePair> authorAndMessage= new ArrayList<MessagePair>();
-        var fiveMessages=messageServices.get5Message();
-        for (var message:fiveMessages)
-        {
-            var author=userServices.findById(message.getUser_id()).toString();
-            var ma=new MessagePair(message.getMessage(),author);
-            authorAndMessage.add(ma);
-        }
 
-        return authorAndMessage;
-    }
 
 }

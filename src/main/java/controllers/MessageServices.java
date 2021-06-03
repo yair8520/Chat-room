@@ -18,7 +18,7 @@ public class MessageServices {
     public void addMessage(Message message){messageRepo.save(message);}
 
     public List<Message> get5Message() {
-        return messageRepo.findTop5ById();
+        return messageRepo.findAllByOrderById();
     }
 
 
