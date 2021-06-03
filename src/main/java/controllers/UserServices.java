@@ -22,10 +22,15 @@ public class UserServices {
     }
 
     public long addUser(User user) {
-        return this.userRepo.save(user).getId();
+        long id=this.userRepo.save(user).getId();
+        setAlive(id);
+        return id;
     }
 
-
+    public void setAlive(long id)
+    {
+        findById(id).get().setAliveState(true);
+    }
     public void findAll() {
         List<User> a = userRepo.findAll();
     }
