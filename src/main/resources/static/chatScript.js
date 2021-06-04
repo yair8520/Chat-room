@@ -55,7 +55,6 @@
                 text_wrapper.className="text_wrapper";
                 let text=document.createElement("div");
                 text.className="text";
-
                 text.innerText=(data[i].author +" : "+ data[i].message).toString();
                 text_wrapper.append(text);
                 new_message.append(text_wrapper);
@@ -64,7 +63,6 @@
                 target.append(new_message);
 
 
-            }
             message.value="";
 
         }

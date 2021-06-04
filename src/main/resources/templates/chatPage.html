@@ -26,13 +26,14 @@
         </div>
         <div class="title">Chat</div>
     </div>
+
     <ul class="messages" id="wall"></ul>
-    <form action="/chat/newMessage" method="post" display="none">
+    <form id="form" >
         <div class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
                 <input class="message_input" id="message_input" name="message_input" placeholder="Type your message here..."/>
             </div>
-            <input type="submit" display="block" class="send_message icon text" value="send" >
+            <input type="submit"  class="send_message icon text" value="send" id="submitButton" >
         </div>
     </form>
 
