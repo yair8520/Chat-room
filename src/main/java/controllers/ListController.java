@@ -49,7 +49,7 @@ public class ListController {
         var fiveMessages=messageServices.get5Message();
         for (var message:fiveMessages)
         {
-            var author=userServices.findById(message.getUser_id()).toString();
+            var author=userServices.findById(message.getuserId()).toString();
             var ma=new MessagePair(message.getMessage(),author);
             authorAndMessage.add(ma);
         }
