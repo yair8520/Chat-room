@@ -36,14 +36,14 @@ public class ChatController {
 
     @GetMapping
     public String chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
+        /*try {
             if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
                 return "/login";
             }
         } catch (Exception e) {
             System.out.println("sadfsd");
             response.sendRedirect("/login");
-        }
+        }*/
         insert_name_user(model);
         return "chatPage";
     }
