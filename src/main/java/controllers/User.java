@@ -16,6 +16,16 @@ public class User {
     @NotEmpty(message = "lastName is mandatory")
     private String lastName;
 
+    public boolean getAliveState() {
+        return alive;
+    }
+
+    public void setAliveState(boolean alive) {
+        this.alive = alive;
+    }
+
+    private boolean alive=false;
+
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
