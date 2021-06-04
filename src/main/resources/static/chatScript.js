@@ -7,7 +7,10 @@
 
         function init() {
 
-            document.getElementById("send_message").addEventListener('click',foo);
+            document.getElementById("open_connecting_users").addEventListener('click',open_user_grid);
+            document.getElementById("close_connecting_users").addEventListener('click',close_user_grid);
+            document.getElementById("open_search").addEventListener('click',open_search_grid);
+            document.getElementById("close_search").addEventListener('click',close_search_grid);
 
         }
         //=============================================================================================================
@@ -31,6 +34,69 @@
 
             message.value="";
 
+        }
+
+        function search_user_message() {
+            let userId=get_input("searchUser'sMessage");
+            fetch('/chat/newMessage', {
+                method: 'POST',
+                body: message,
+                headers: {'Content-Type': 'application/json'} })
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        alert("Looks like there was a problem");
+                        return ;
+                    }
+                    response.json().then(function (data){displayList(data)});
+                })
+                .catch(function (err) {
+                    alert("fetch err")
+                });
+        }
+
+        function search_message()
+        {
+            let message=get_input("searchInput");
+            fetch('/chat/newMessage', {
+                method: 'POST',
+                body: message,
+                headers: {'Content-Type': 'application/json'} })
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        alert("Looks like there was a problem");
+                        return ;
+                    }
+                    response.json().then(function (data){displayList(data)});
+                })
+                .catch(function (err) {
+                    alert("fetch err")
+                });
+        }
+
+        function get_input(object_id)
+        {
+            let input=document.getElementById(object_id).value;
+            if(input.trim()===""||input===null)
+            {
+                alert("please enter a valid string!");
+            }
+            else
+                return input;
+        }
+        function open_user_grid(){
+            document.getElementById("connecting_users_div").style.display="block";
+        }
+
+        function close_user_grid(){
+            document.getElementById("connecting_users_div").style.display="none";
+        }
+
+        function open_search_grid(){
+            document.getElementById("search_div").style.display="block";
+        }
+
+        function  close_search_grid(){
+            document.getElementById("search_div").style.display="none";
         }
 
     }

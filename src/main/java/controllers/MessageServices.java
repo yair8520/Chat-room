@@ -21,5 +21,7 @@ public class MessageServices {
         return messageRepo.findAllByOrderById();
     }
 
+    //public List<Message> getUserMessages(long id) {return messageRepo.findAllByUser_id(id);}
 
+    public Message getMessage(String message){return messageRepo.findByMessage(message);}
 }
