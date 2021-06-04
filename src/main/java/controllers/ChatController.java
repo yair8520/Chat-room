@@ -65,7 +65,7 @@ public class ChatController {
         List<MessagePair> authorAndMessage = new Vector<MessagePair>();
         var fiveMessages = messageServices.get5Message();
         for (var message : fiveMessages) {
-            var author = userServices.findById(message.getUser_id());
+            var author = userServices.findById(message.getuserId());
             var ma = new MessagePair(message.getMessage(), author.get().toString());
             authorAndMessage.add(ma);
         }

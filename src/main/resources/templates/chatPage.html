@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Hello, world!</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+          xmlns="http://www.w3.org/1999/html">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="chatScript.js"></script>
-
     <link rel="stylesheet" href="chatCss.css"/>
-
 </head>
+<!------ Include the above in your HEAD tag ---------->
 <body>
 <div class="chat_window">
-    <h1><span id="name" th:text="'Hello, ' + ${f_name}+' '+ ${l_name}"></span></h1>
     <div class="top_menu">
         <div class="buttons">
             <div class="button close"></div>
@@ -24,14 +27,7 @@
         <div class="title">Chat</div>
     </div>
 
-
-
-
-
     <ul class="messages" id="wall"></ul>
-
-
-
     <form id="form" >
         <div class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
@@ -40,6 +36,7 @@
             <input type="submit"  class="send_message icon text" value="send" id="submitButton" >
         </div>
     </form>
+
 </div>
 <div class="message_template">
     <li class="message">
@@ -49,5 +46,28 @@
         </div>
     </li>
 </div>
+
+<button class="open-users-button" id="open_connecting_users">Connecting users</button>
+<div class="form-users-popup form-container" id="connecting_users_div">
+    <h1>Connecting users</h1>
+    <ul id="connecting_list"></ul>
+    <button type="button" class="btn cancel" id="close_connecting_users">Close</button>
+</div>
+
+<button class="open-search-button" id="open_search">Search</button>
+<div class="form-search-popup form-container" id="search_div">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="search_message">Search message</button>
+            <button class="btn btn-outline-secondary" type="button" id="search_user's_message">Search user's message</button>
+        </div>
+    </div>
+    <button type="button" class="btn cancel" id="close_search">Close</button>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
-</html>
