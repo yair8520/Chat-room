@@ -22,5 +22,7 @@ public class MessageServices {
            return   s.size()<=5 ? s : s.subList(0,5);
     }
 
+    public List<Message> getUserMessages(long id) {return messageRepo.findAllByUserId(id);}
 
+    public Message getMessage(String message){return messageRepo.findByMessage(message);}
 }
