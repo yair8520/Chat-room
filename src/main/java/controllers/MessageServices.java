@@ -18,12 +18,8 @@ public class MessageServices {
     public void addMessage(Message message){messageRepo.save(message);}
 
     public List<Message> get5Message() {
-
        var s= messageRepo.findAllByOrderById();
-       if(s.size()<=5)
-           return s;
-       else
-           return s.subList(0,5);
+           return   s.size()<=5 ? s : s.subList(0,5);
     }
 
     public List<Message> getUserMessages(long id) {return messageRepo.findAllByUserId(id);}
