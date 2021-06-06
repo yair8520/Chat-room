@@ -12,12 +12,9 @@ import javax.annotation.Resource;
 import javax.persistence.Tuple;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Vector;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/chat")
@@ -35,17 +32,15 @@ public class ChatController {
     }
 
     @GetMapping
-    public String chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
-                return "/login";
-            }
-        } catch (Exception e) {
-            System.out.println("sadfsd");
-            response.sendRedirect("/login");
-        }
+    public ModelAndView chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+        /*if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
+            return new ModelAndView("redirect:" + "/login");
+        }*/
+
         insert_name_user(model);
-        return "chatPage";
+        return new ModelAndView("chatPage");
     }
 
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
@@ -59,6 +54,9 @@ public class ChatController {
 
         return add_authors();
     }
+
+
+
 
 
     private List<MessagePair> add_authors() {
