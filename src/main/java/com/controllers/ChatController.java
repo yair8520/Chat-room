@@ -50,7 +50,7 @@ public class ChatController {
 
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> new_message(@RequestBody String message) {
+    public List<MessagePair> new_message(@RequestBody String message,HttpServletRequest request) {
 
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
