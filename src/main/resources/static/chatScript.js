@@ -6,22 +6,18 @@
 
 
         function init() {
-            setInterval(() => {
+           /* setInterval(() => {
                 getAllMessages();
             }, 10000);//every 10 sec fetch list
             setInterval(() => {
                 getConnectedUsers();
-            }, 10000);//every 10 sec fetch list
+            }, 10000);//every 10 sec fetch list*/
 
             getAllMessages();
             getConnectedUsers();
 
-            document.getElementById("open_connecting_users").addEventListener('click', open_userSearch);
             document.getElementById("searchByMessage").addEventListener('click', searchMessagesByTextOrUser);
             document.getElementById("searchByUser").addEventListener('click', searchMessagesByTextOrUser);
-            document.getElementById("close_connecting_users").addEventListener('click', close_user_grid);
-            document.getElementById("open_search").addEventListener('click', open_search_grid);
-            document.getElementById("close_search").addEventListener('click', close_search_grid);
             document.getElementById('form').addEventListener('submit', addMessage);
 
         }
@@ -180,13 +176,7 @@
 
         //=============================================================================================================
 
-        function close_user_grid() {document.getElementById("connecting_users_div").style.display = "none";}
 
-        function open_search_grid() {document.getElementById("search_div").style.display = "block";}
-
-        function open_userSearch() {document.getElementById("connecting_users_div").style.display = "block";}
-
-        function close_search_grid() {document.getElementById("search_div").style.display = "none";}
 
     }
 

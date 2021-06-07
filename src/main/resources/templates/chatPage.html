@@ -1,17 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Hello, world!</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
-          xmlns="http://www.w3.org/1999/html">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" xmlns="http://www.w3.org/1999/html">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script src="chatScript.js"></script>
     <link rel="stylesheet" href="chatCss.css"/>
 </head>
@@ -20,10 +25,14 @@
 
 <!------ ---------->
 <form action="/readme" method="get">
-    <button type="submit" id="readme" class="btn btn-outline-success" >readme</button></form></li>
+    <button type="submit" id="readme" class="btn btn-outline-success">readme</button>
+</form>
+</li>
 <form action="/chat/logout" method="get">
-    <button type="submit" id="logout" class="btn btn-outline-danger" >Logout</button></form>
+    <button type="submit" id="logout" class="btn btn-outline-danger">Logout</button>
+</form>
 <div class="chat_window">
+    <h1><span th:text="'Hello, ' + ${f_name}+' '+ ${l_name}"></span></h1>
     <div class="top_menu">
         <div class="buttons">
             <div class="button close"></div>
@@ -34,12 +43,13 @@
     </div>
 
     <ul class="messages" id="wall"></ul>
-    <form id="form" >
+    <form id="form">
         <div class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
-                <input class="message_input" id="message_input" name="message_input" placeholder="Type your message here..."/>
+                <input class="message_input" id="message_input" name="message_input"
+                       placeholder="Type your message here..."/>
             </div>
-            <input type="submit"  class="send_message icon text" value="send" id="submitButton" >
+            <input type="submit" class="send_message icon text" value="send" id="submitButton">
         </div>
     </form>
 
@@ -53,28 +63,121 @@
     </li>
 </div>
 
-<button class="open-users-button" id="open_connecting_users">Connecting users</button>
-<div class="form-users-popup form-container" id="connecting_users_div">
-    <h1>Connected users</h1>
-    <ul id="connecting_list"></ul>
-    <button type="button" class="btn cancel" id="close_connecting_users">Close</button>
-</div>
 
-<button class="open-search-button" id="open_search">Search</button>
-<div class="form-search-popup form-container" id="search_div">
-    <div class="input-group">
-        <ul id="search_message_list"></ul>
-        <input type="text" id="searchInput" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="searchByMessage">Search message</button>
-            <button class="btn btn-outline-secondary" type="button" id="searchByUser">Search user's message</button>
+
+
+</div>
+<!--myModal-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Connected</button>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Connected User's</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <ul id="connecting_list"></ul>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="form-users-popup form-container" id="connecting_users_div"></div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
         </div>
     </div>
-    <button type="button" class="btn cancel" id="close_search">Close</button>
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<!--myModal222-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#my">
+    Open modal
+</button>
+
+<div class="modal" id="my">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Search</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <ul id="search_message_list"></ul>
+
+                <input type="text" id="searchInput" class="form-control" placeholder="Recipient's username"
+                       aria-label="Recipient's username" aria-describedby="basic-addon2">
+            </div>
+
+            <div class="modal-footer">
+
+                <div class="input-group">
+
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="searchByMessage">Search message</button>
+                        <button class="btn btn-outline-secondary" type="button" id="searchByUser">Search user's message</button>
+                    </div>
+                </div>
+
+
+
+
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
