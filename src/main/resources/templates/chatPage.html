@@ -17,6 +17,12 @@
 </head>
 <!------ Include the above in your HEAD tag ---------->
 <body>
+
+<!------ ---------->
+<form action="/readme" method="get">
+    <button type="submit" id="readme" class="btn btn-outline-success" >readme</button></form></li>
+<form action="/chat/logout" method="get">
+    <button type="submit" id="logout" class="btn btn-outline-danger" >Logout</button></form>
 <div class="chat_window">
     <div class="top_menu">
         <div class="buttons">
@@ -49,7 +55,7 @@
 
 <button class="open-users-button" id="open_connecting_users">Connecting users</button>
 <div class="form-users-popup form-container" id="connecting_users_div">
-    <h1>Connecting users</h1>
+    <h1>Connected users</h1>
     <ul id="connecting_list"></ul>
     <button type="button" class="btn cancel" id="close_connecting_users">Close</button>
 </div>
@@ -57,7 +63,8 @@
 <button class="open-search-button" id="open_search">Search</button>
 <div class="form-search-popup form-container" id="search_div">
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <ul id="search_message_list"></ul>
+        <input type="text" id="searchInput" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="search_message">Search message</button>
             <button class="btn btn-outline-secondary" type="button" id="search_user's_message">Search user's message</button>

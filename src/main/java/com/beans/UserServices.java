@@ -1,6 +1,8 @@
-package controllers;
+package com.beans;
 
 
+import com.repo.User;
+import com.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class UserServices {
 
     public long addUser(User user) {
         long id=this.userRepo.save(user).getId();
-        setAlive(id);
+        setAlive(id);                                     //after login alive true
         return id;
     }
 
@@ -31,11 +33,13 @@ public class UserServices {
     {
         findById(id).get().setAliveState(true);
     }
-    public void findAll() {
-        List<User> a = userRepo.findAll();
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     public Optional<User> findById(long id) {
         return this.userRepo.findById(id);
     }
+
+    public List<User> getConnectedUsers() { return userRepo.findByAlive(true); }
 }
