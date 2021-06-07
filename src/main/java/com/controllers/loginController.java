@@ -4,6 +4,7 @@ import com.beans.UserServices;
 import com.repo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,21 +26,27 @@ public class loginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getm() {
+    public String getm(Model model) {
         return "login";
     }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
-                                @RequestParam(name = "lastName") String last_name,HttpServletRequest request) {
-        User user = new User(first_name, last_name);
-        long id = this.userServices.addUser(user);
-        sessionScopeId.setId(id);
-        request.getSession(true);
+                                @RequestParam(name = "lastName") String last_name, HttpServletRequest request) {
+        if (userServices.findByFirstNameAndLastName(first_name, last_name).getAliveState()==false) {
+            User user = new User(first_name, last_name);
+            long id = this.userServices.addUser(user);
+            sessionScopeId.setId(id);
+            request.getSession(true);
+            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+            return modelAndView;
+        } else {
+            ModelAndView modelAndView = new ModelAndView("login");
+            modelAndView.addObject("dupUser","The name is registered in the system. Please select a different name");
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/chat");
-        return modelAndView;
+            return modelAndView;
+        }
 
     }
 

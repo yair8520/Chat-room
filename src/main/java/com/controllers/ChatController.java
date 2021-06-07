@@ -51,21 +51,39 @@ public class ChatController {
         messageServices.addMessage(new_message);
         return add_authors(messageServices.get5Message());
     }
+
     @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
         return userServices.getConnectedUsers();
     }
+
     @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
         return add_authors(messageServices.get5Message());
     }
+
     @RequestMapping(value = "/searchByMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> getAllMessages(@RequestBody String message)  {
+    public List<MessagePair> getAllMessages(@RequestBody String message) {
         return add_authors(messageServices.findAllByMessage(message));
     }
+
+    @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MessagePair> searchByUser(@RequestBody String userName) {
+
+        List<MessagePair> empty = new Vector<MessagePair>();
+        var list = userName.split(" ");
+        if (list.length < 2) {
+            return add_authors(messageServices.getUserMessages(userServices.findByFirstName(list[0]).getId()));
+        } else {
+            return add_authors(messageServices.getUserMessages(userServices.findByFirstNameAndLastName(list[0], list[1]).getId()));
+        }
+
+    }
+
     private void insert_name_user(Model model) {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());

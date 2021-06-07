@@ -25,9 +25,9 @@
         <hr>
         <label for="firstName"><b>First name</b></label>
         <input type="text" placeholder="Enter first name" name="firstName" id="firstName" >
-<!--
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
--->
+
+        <span  th:text="${dupUser}" class="text-danger"></span>
+
 
         <label for="lastName"><b>Second name</b></label>
         <input type="text" placeholder="Enter second name" name="lastName" id="lastName">

@@ -33,6 +33,7 @@ public class UserServices {
     {
         findById(id).get().setAliveState(true);
     }
+
     public List<User> findAll() {
         return userRepo.findAll();
     }
@@ -42,4 +43,12 @@ public class UserServices {
     }
 
     public List<User> getConnectedUsers() { return userRepo.findByAlive(true); }
+
+    public User findByFirstNameAndLastName(String firstName, String lastName) {
+        return userRepo.findByFirstNameAndLastName(firstName,lastName);
+    }
+    public User findByFirstName(String firstName) {
+        return userRepo.findByFirstName(firstName);
+    }
+
 }
