@@ -1,15 +1,17 @@
-package controllers;
+package com.controllers;
 
 
+import com.beans.MessageServices;
+import com.beans.UserServices;
+import com.repo.Message;
+import com.repo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.persistence.Tuple;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,12 +35,9 @@ public class ChatController {
 
     @GetMapping
     public ModelAndView chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-
         /*if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
             return new ModelAndView("redirect:" + "/login");
         }*/
-
         insert_name_user(model);
         return new ModelAndView("chatPage");
     }
@@ -50,33 +49,45 @@ public class ChatController {
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
-        List<MessagePair> authorAndMessage = add_authors();
-
-        return add_authors();
+        return add_authors(messageServices.get5Message());
     }
-
-
-
-
-
-    private List<MessagePair> add_authors() {
-        List<MessagePair> authorAndMessage = new Vector<MessagePair>();
-        var fiveMessages = messageServices.get5Message();
-        for (var message : fiveMessages) {
-            var author = userServices.findById(message.getuserId());
-            var ma = new MessagePair(message.getMessage(), author.get().toString());
-            authorAndMessage.add(ma);
-        }
-
-        return authorAndMessage;
+    @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getConnectedUsers() throws IOException {
+        return userServices.getConnectedUsers();
     }
-
-
+    @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
+    @ResponseBody
+    public List<MessagePair> getAllMessages() throws IOException {
+        return add_authors(messageServices.get5Message());
+    }
+    @RequestMapping(value = "/searchByMessage", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MessagePair> getAllMessages(@RequestBody String message)  {
+        return add_authors(messageServices.findAllByMessage(message));
+    }
     private void insert_name_user(Model model) {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());
         model.addAttribute("l_name", s.get().getLastName());
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logOut() {
+        userServices.findById(sessionScopeId.getId()).get().setAliveState(false);     //after logout user dead
+        return new ModelAndView("redirect:" + "/login");
+    }
+
+
+    private List<MessagePair> add_authors(List<Message> s) {
+        List<MessagePair> authorAndMessage = new Vector<MessagePair>();
+        var fiveMessages = s;
+        for (var message : fiveMessages) {
+            var author = userServices.findById(message.getuserId());
+            var ma = new MessagePair(message.getMessage(), author.get().toString());
+            authorAndMessage.add(ma);
+        }
+        return authorAndMessage;
+    }
 
 }
