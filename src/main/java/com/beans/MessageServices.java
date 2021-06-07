@@ -1,9 +1,11 @@
-package controllers;
+package com.beans;
 
+import com.repo.Message;
+import com.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,11 +20,13 @@ public class MessageServices {
     public void addMessage(Message message){messageRepo.save(message);}
 
     public List<Message> get5Message() {
-       var s= messageRepo.findAllByOrderById();
-           return   s.size()<=5 ? s : s.subList(0,5);
+
+        var s= messageRepo.findFirst5ByOrderByDateTimeDesc();
+        Collections.reverse(s);
+        return   s;
     }
 
     public List<Message> getUserMessages(long id) {return messageRepo.findAllByUserId(id);}
 
-    public Message getMessage(String message){return messageRepo.findByMessage(message);}
+    public List<Message> findAllByMessage(String message){return messageRepo.findAllByMessage(message);}
 }

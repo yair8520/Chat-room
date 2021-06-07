@@ -1,7 +1,6 @@
-package controllers;
+package com.repo;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -24,7 +23,7 @@ public class User {
         this.alive = alive;
     }
 
-    private boolean alive=false;
+    private boolean alive=false; //default dead
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;

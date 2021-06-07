@@ -1,4 +1,4 @@
-package controllers;
+package com.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,8 +10,9 @@ public interface MessageRepo extends JpaRepository<Message,Long> {
 
    //  List<Message> findById(long id);
      List<Message> findAllByOrderById();
+     List<Message> findFirst5ByOrderByDateTimeDesc();
      List<Message> findAllByUserId(long id);
-     Message findByMessage(String message);
+    List<Message> findAllByMessage(String message);
 
 }
 

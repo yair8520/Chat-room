@@ -1,4 +1,4 @@
-package controllers;
+package com.controllers;
 
 public class MessagePair {
     private String message;
