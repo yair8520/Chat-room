@@ -1,5 +1,6 @@
 package com.beans;
 
+import com.controllers.MessagePair;
 import com.repo.Message;
 import com.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,8 @@ public class MessageServices {
     public List<Message> getUserMessages(long id) {return messageRepo.findAllByUserId(id);}
 
     public List<Message> findAllByMessage(String message){return messageRepo.findAllByMessage(message);}
+
+    /*public List<Message> findAllByUserName(String userName) {
+        messageRepo.findAllByUserName(userName);
+    }*/
 }
