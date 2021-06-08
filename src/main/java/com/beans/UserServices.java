@@ -48,7 +48,11 @@ public class UserServices {
         return userRepo.findByFirstNameAndLastName(firstName,lastName);
     }
     public User findByFirstName(String firstName) {
-        return userRepo.findByFirstName(firstName);
+        var result=userRepo.findByFirstName(firstName);
+        if(result==null)
+            return new User();
+        else return result;
+       // return userRepo.findByFirstName(firstName);
     }
 
 }
