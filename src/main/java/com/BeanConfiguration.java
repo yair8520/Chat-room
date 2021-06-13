@@ -6,6 +6,8 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpSessionListener;
@@ -18,7 +20,7 @@ public class BeanConfiguration {
 
     /* session scope */
     @Bean
-    @SessionScope
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserData sessionScopeId() {
         System.out.println("BeanConfiguration");
         return new UserData();

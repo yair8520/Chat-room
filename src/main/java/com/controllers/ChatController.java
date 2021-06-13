@@ -35,6 +35,12 @@ public class ChatController {
 
     @GetMapping
     public ModelAndView chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+       /* var s = (request.getSession().getAttribute("id"));
+        var d= request.getSession().getCreationTime();
+        var e= request.getSession().getServletContext().getResource("id") ;
+        var v= request.getSession().getId() ;*/
+        var a=sessionScopeId.getId();//!=-1
         /*if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
             return new ModelAndView("redirect:" + "/login");
         }*/
@@ -55,7 +61,7 @@ public class ChatController {
     @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
-        return userServices.getConnectedUsers();
+        return userServices.findAll();
     }
 
     @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
@@ -74,14 +80,12 @@ public class ChatController {
     @ResponseBody
     public List<MessagePair> searchByUser(@RequestBody String userName) {
 
-        List<MessagePair> empty = new Vector<MessagePair>();
         var list = userName.split(" ");
         if (list.length < 2) {
             return add_authors(messageServices.getUserMessages(userServices.findByFirstName(list[0]).getId()));
         } else {
             return add_authors(messageServices.getUserMessages(userServices.findByFirstNameAndLastName(list[0], list[1]).getId()));
         }
-
     }
 
     private void insert_name_user(Model model) {
@@ -93,6 +97,7 @@ public class ChatController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logOut() {
         userServices.findById(sessionScopeId.getId()).get().setAliveState(false);     //after logout user dead
+                                                                                        //destroy session
         return new ModelAndView("redirect:" + "/login");
     }
 

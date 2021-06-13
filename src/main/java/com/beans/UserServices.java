@@ -42,8 +42,9 @@ public class UserServices {
         return this.userRepo.findById(id);
     }
 
-    public List<User> getConnectedUsers() { return userRepo.findByAlive(true); }
-
+    public List<User> getConnectedUsers() {
+        return userRepo.findByAlive(true);
+    }
     public User findByFirstNameAndLastName(String firstName, String lastName) {
         return userRepo.findByFirstNameAndLastName(firstName,lastName);
     }
