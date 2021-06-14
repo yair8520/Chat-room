@@ -6,13 +6,13 @@
 
 
         function init() {
-            setInterval(() => {
+           /* setInterval(() => {
                 getAllMessages();
             }, 10000);//every 10 sec fetch list
             setInterval(() => {
                 getConnectedUsers();
             }, 10000);//every 10 sec fetch ConnectedUsers
-
+*/
             getAllMessages();
             getConnectedUsers();
 
@@ -30,6 +30,7 @@
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
+                        window.location.replace('/error');
                         return;
                     }
                     response.json().then(function (data) {
@@ -50,6 +51,7 @@
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
+                        window.location.replace('/error');
                         return;
                     }
                     response.json().then(function (data) {
@@ -128,10 +130,12 @@
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
+                        window.location.replace('/error');
                         return;
                     }
                     response.json().then(function (data) {
                         diplayUsersList(data)
+
                     });
                 })
                 .catch(function (err) {
@@ -153,6 +157,7 @@
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
+                        window.location.replace('/error');
                         return;
                     }
                     response.json().then(function (data) {

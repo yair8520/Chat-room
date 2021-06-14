@@ -3,8 +3,10 @@ package com.controllers;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 
 /**
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ChatInterceptor implements HandlerInterceptor {
 
+    @Resource(name = "id")
+    UserData sessionScopeId;
+
     public ChatInterceptor() {
     }
 
@@ -23,31 +28,23 @@ public class ChatInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-//request.getSession().getAttribute("id") == null || (long) (request.getSession().getAttribute("id")) == -1
-        if (request.getSession(false)==null) {
-            response.sendRedirect("/");
-            System.out.print("-------- preHandle session existed ---    ");
+        if (request.getSession(false) == null) {
+            response.sendRedirect("/error/notLoggedIn");
+            System.out.print("-------- preHandle not session existed ---  ");
             return false;
         }
-        System.out.print("-------- preHandle session not existed!!  ---    ");
+        System.out.print("-------- preHandle session  existed!!  ---    ");
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, //
                            Object handler, ModelAndView modelAndView) throws Exception {
-
-        //System.out.print("-------- postHandle ---: ");
-        //System.out.println("Request URL: " + request.getRequestURL());
-
-        // You can add attributes in the modelAndView
-        // and use that in the view page
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, //
                                 Object handler, Exception ex) throws Exception {
-        //System.out.print("-------- afterCompletion ---: ");
 
 
     }

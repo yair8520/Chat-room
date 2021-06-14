@@ -34,16 +34,7 @@ public class ChatController {
     }
 
     @GetMapping
-    public ModelAndView chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-       /* var s = (request.getSession().getAttribute("id"));
-        var d= request.getSession().getCreationTime();
-        var e= request.getSession().getServletContext().getResource("id") ;
-        var v= request.getSession().getId() ;*/
-        var a=sessionScopeId.getId();//!=-1
-        /*if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
-            return new ModelAndView("redirect:" + "/login");
-        }*/
+    public ModelAndView chatPage(Model model) throws IOException {
         insert_name_user(model);
         return new ModelAndView("chatPage");
     }
@@ -51,7 +42,6 @@ public class ChatController {
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> new_message(@RequestBody String message,HttpServletRequest request) {
-
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
@@ -95,10 +85,12 @@ public class ChatController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logOut() {
-        userServices.findById(sessionScopeId.getId()).get().setAliveState(false);     //after logout user dead
-                                                                                        //destroy session
-        return new ModelAndView("redirect:" + "/login");
+    public ModelAndView logOut(HttpServletRequest req) {
+        var s=userServices.findById(sessionScopeId.getId()).get();
+        s.setAliveState(false);
+        userServices.addUser(s,false);
+        req.getSession(false).invalidate();
+        return new ModelAndView("redirect:" + "/");
     }
 
 

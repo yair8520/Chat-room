@@ -12,7 +12,6 @@ public interface UserRepo extends JpaRepository<User,Long> {
     User findByFirstNameAndLastName(String firstname, String lastname);
     User findByFirstName(String firstName);
 
-
     List<User> findByAlive(boolean alive);
 
 }

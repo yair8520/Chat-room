@@ -22,9 +22,9 @@ public class MessageServices {
 
     public List<Message> get5Message() {
 
-        var s= messageRepo.findFirst5ByOrderByDateTimeDesc();
+        var s= messageRepo.findFirst5ByOrderByIdDesc();
         Collections.reverse(s);
-        return   s;
+        return  s;
     }
 
     public List<Message> getUserMessages(long id) {return messageRepo.findAllByUserId(id);}

@@ -1,6 +1,7 @@
 package com;
 
 
+import com.controllers.SessionListener;
 import com.controllers.UserData;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -21,19 +22,19 @@ public class BeanConfiguration {
     /* session scope */
     @Bean
     @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public UserData sessionScopeId() {
+    public UserData id() {
         System.out.println("BeanConfiguration");
         return new UserData();
     }
-    /*@Bean
+    @Bean
     public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
         ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
 
         listenerRegBean.setListener(new SessionListener());
         return listenerRegBean;
-    }*/
-   /* @Bean
+    }
+    @Bean
     public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
         return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
-    }*/
+    }
 }

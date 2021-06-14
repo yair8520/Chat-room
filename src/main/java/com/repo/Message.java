@@ -20,8 +20,6 @@ public class Message {
 
     private long userId;
 
-    @CreationTimestamp
-    private LocalDateTime dateTime;
 
     public Message(String message, long userId) {
         this.message = message;

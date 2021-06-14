@@ -1,4 +1,4 @@
-/*
+
 package com.controllers;
 
 import javax.servlet.annotation.WebListener;
@@ -6,10 +6,6 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.atomic.AtomicInteger;
 
-*/
-/**
- * a @WebListener class for session count
- *//*
 
 @WebListener
 public class SessionListener implements HttpSessionListener {
@@ -31,6 +27,9 @@ public class SessionListener implements HttpSessionListener {
     public void sessionDestroyed(final HttpSessionEvent event) {
         activeSessions.decrementAndGet();
         System.out.println("SessionListener --- Total active session are " + activeSessions.get());
+        //var s=event.getSession().getAttribute("id");
+       // System.out.println(s);
+
     }
 }
-*/
+
