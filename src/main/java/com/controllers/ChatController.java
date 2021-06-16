@@ -41,7 +41,7 @@ public class ChatController {
 
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> new_message(@RequestBody String message,HttpServletRequest request) {
+    public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
@@ -69,13 +69,22 @@ public class ChatController {
 
     @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> searchByUser(@RequestBody String userName) {
+    public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
+
+       List<List<MessagePair>>  result = new Vector<>();
 
         var list = userName.split(" ");
-        if (list.length < 2) {
-            return add_authors(messageServices.getUserMessages(userServices.findByFirstName(list[0]).getId()));
+        if (list.length < 2)
+        {
+            List<User> a = userServices.findByFirstName(list[0]);
+            for(var i :a)
+                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            return result;
         } else {
-            return add_authors(messageServices.getUserMessages(userServices.findByFirstNameAndLastName(list[0], list[1]).getId()));
+            List<User> b =userServices.findAllByFirstNameAndLastName(list[0], list[1]);
+            for(var i :b)
+                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            return result;
         }
     }
 
@@ -101,7 +110,7 @@ public class ChatController {
         var fiveMessages = s;
         for (var message : fiveMessages) {
             var author = userServices.findById(message.getuserId());
-            var ma = new MessagePair(message.getMessage(), author.get().toString(),message.getuserId());
+            var ma = new MessagePair(message.getMessage(), author.get().toString());
             authorAndMessage.add(ma);
         }
         return authorAndMessage;

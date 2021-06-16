@@ -16,8 +16,8 @@
             getAllMessages();
             getConnectedUsers();
 
-            document.getElementById("searchByMessage").addEventListener('click', searchMessagesByTextOrUser);
-            document.getElementById("searchByUser").addEventListener('click', searchMessagesByTextOrUser);
+            document.getElementById("searchByMessage").addEventListener('click', searchByMessage);
+            document.getElementById("searchByUser").addEventListener('click', searchUser);
             document.getElementById("form").addEventListener('submit', addMessage);
 
         }
@@ -63,6 +63,55 @@
                 });
         }
 
+        //=============================================================================================================
+        function searchUser()
+        {
+            let message = document.getElementById("searchInput").value
+            document.getElementById("searchInput").value = ""
+
+            if (message.trim() === "" || message === null) {
+                alert("please enter a valid string!");
+                return;
+            }
+            let url = '/chat/' + this.id
+            fetch(url, {method: 'post', body: message, headers: {'Content-Type': 'application/json'}})
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        alert("Looks like there was a problem");
+                        window.location.replace('/error');
+                        return;
+                    }
+                    response.json().then(function (data) {
+                        displayListByUser(data)
+                    });
+                })
+                .catch(function (err) {
+                    alert("fetch err")
+                });
+
+        }
+        function displayListByUser(data)
+        {
+            var target = document.getElementById("search_message_list");
+            destroyChildNodes(target);
+            if (data.length === 0)
+                target.innerText += ("nothing to show!")
+
+            for (let i = 0; i < data.length; i++)
+            {
+                let new_message_li = document.createElement("li");
+                let new_message = document.createElement("ul");
+                new_message_li.innerText = ( data[i][0].author).toString();
+                new_message_li.append(new_message);
+                for(let j=0;j< data[i].length;j++)
+                {
+                    let new_message_sub_li = document.createElement("li");
+                    new_message_sub_li.innerText= (data[i][j].message).toString();
+                    new_message.append(new_message_sub_li);
+                }
+                target.append(new_message_li);
+            }
+        }
         //=============================================================================================================
         function displayList(data) {
             var target = document.getElementById("wall");
@@ -156,7 +205,7 @@
         }
 
         //=============================================================================================================
-        function searchMessagesByTextOrUser() {
+        function searchByMessage() {
             let message = document.getElementById("searchInput").value
             document.getElementById("searchInput").value = ""
 
@@ -173,7 +222,7 @@
                         return;
                     }
                     response.json().then(function (data) {
-                        displayListByMessageOrUser(data)
+                        displayListByMessage(data)
                     });
                 })
                 .catch(function (err) {
@@ -199,7 +248,7 @@
         }
 
         //=============================================================================================================
-        function displayListByMessageOrUser(data) {
+        function displayListByMessage(data) {
 
             var target = document.getElementById("search_message_list");
             destroyChildNodes(target);

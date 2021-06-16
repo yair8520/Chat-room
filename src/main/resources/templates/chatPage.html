@@ -63,7 +63,7 @@
                                     <div class="input-group"><br><span><strong><u>List of users</u></strong></span></div>
                                 </div>
                                 <div class="selected-user">
-                                    <ul class="users" id="connecting_list"></ul>
+                                    <ul class="users" id="connecting_list" style="list-style-type: none;"></ul>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <span style="display:none;"><span id="id_user" th:text="${id_user}"></span></span>
                             </div>
                             <div class="chat-container">
-                                <ul class="chat-box chatContainerScroll" id="wall">
+                                <ul class="chat-box chatContainerScroll ul-wall" id="wall"  >
                                     <li>empty</li>
                                 </ul>
                                 <div class="form-group mt-3 mb-0">

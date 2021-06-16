@@ -47,13 +47,17 @@ public class UserServices {
     public List<User> getConnectedUsers() {
         return userRepo.findByAlive(true);
     }
-    public User findByFirstNameAndLastName(String firstName, String lastName) {
-        return userRepo.findByFirstNameAndLastName(firstName,lastName);
+
+    public List<User> findAllByFirstNameAndLastName(String firstName, String lastName) {
+        return (List<User>) userRepo.findAllByFirstNameAndLastName(firstName,lastName);
     }
-    public User findByFirstName(String firstName) {
-        var result=userRepo.findByFirstName(firstName);
+    public User findByFirstNameAndLastName(String firstName, String lastName) {
+        return  userRepo.findByFirstNameAndLastName(firstName,lastName);
+    }
+    public List<User> findByFirstName(String firstName) {
+        var result=userRepo.findAllByFirstName(firstName);
         if(result==null)
-            return new User();
+            return (List<User>) new User();
         else return result;
     }
 

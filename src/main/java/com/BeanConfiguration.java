@@ -2,8 +2,10 @@ package com;
 
 
 //import com.controllers.SessionListener;
+import com.beans.UserServices;
 import com.controllers.SessionListener;
 import com.controllers.UserData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +23,12 @@ import javax.servlet.http.HttpSessionListener;
 public class BeanConfiguration {
 
 
+    private final UserServices userServices;
 
-
-
+    @Autowired
+    public BeanConfiguration(UserServices userServices) {
+        this.userServices = userServices;
+    }
     /* session scope */
     @Bean
     @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -35,11 +40,11 @@ public class BeanConfiguration {
     public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
         ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
 
-        listenerRegBean.setListener(new SessionListener());
+        listenerRegBean.setListener(new SessionListener(userServices));
         return listenerRegBean;
     }
     @Bean
     public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
+        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener(userServices));
     }
 }
