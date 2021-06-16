@@ -25,8 +25,14 @@ public class loginController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getLoginPage(Model model) {
-               return "login";
+    public ModelAndView getLoginPage(Model model) {
+         System.out.println("getLoginPage");
+        long id =this.sessionScopeId.getId();
+        if(id!=-1) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+            return modelAndView;
+        }
+        return new ModelAndView("login");
     }
 
 

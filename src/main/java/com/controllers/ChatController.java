@@ -57,6 +57,7 @@ public class ChatController {
     @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
+        long id = sessionScopeId.getId();
         return add_authors(messageServices.get5Message());
     }
 

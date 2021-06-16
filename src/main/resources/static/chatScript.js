@@ -6,13 +6,13 @@
 
 
         function init() {
-           /* setInterval(() => {
+            /*setInterval(() => {
                 getAllMessages();
             }, 10000);//every 10 sec fetch list
             setInterval(() => {
                 getConnectedUsers();
-            }, 10000);//every 10 sec fetch ConnectedUsers
-*/
+            }, 10000);//every 10 sec fetch ConnectedUsers*/
+
             getAllMessages();
             getConnectedUsers();
 

@@ -2,6 +2,7 @@ package com;
 
 
 //import com.controllers.SessionListener;
+import com.controllers.SessionListener;
 import com.controllers.UserData;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,10 @@ import javax.servlet.http.HttpSessionListener;
 @Configuration
 public class BeanConfiguration {
 
+
+
+
+
     /* session scope */
     @Bean
     @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -26,15 +31,15 @@ public class BeanConfiguration {
         System.out.println("BeanConfiguration");
         return new UserData();
     }
-//    @Bean
-//    public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
-//        ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
-//
-//        listenerRegBean.setListener(new SessionListener());
-//        return listenerRegBean;
-//    }
-//    @Bean
-//    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-//        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
-//    }
+    @Bean
+    public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
+        ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
+
+        listenerRegBean.setListener(new SessionListener());
+        return listenerRegBean;
+    }
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
+        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
+    }
 }
