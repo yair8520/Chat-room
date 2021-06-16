@@ -1,7 +1,7 @@
 package com;
 
 
-import com.controllers.SessionListener;
+//import com.controllers.SessionListener;
 import com.controllers.UserData;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -26,15 +26,15 @@ public class BeanConfiguration {
         System.out.println("BeanConfiguration");
         return new UserData();
     }
-    @Bean
-    public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
-        ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
-
-        listenerRegBean.setListener(new SessionListener());
-        return listenerRegBean;
-    }
-    @Bean
-    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
-    }
+//    @Bean
+//    public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
+//        ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();
+//
+//        listenerRegBean.setListener(new SessionListener());
+//        return listenerRegBean;
+//    }
+//    @Bean
+//    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
+//        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener());
+//    }
 }

@@ -26,7 +26,7 @@ public class loginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getLoginPage(Model model) {
-        return "login";
+               return "login";
     }
 
 
