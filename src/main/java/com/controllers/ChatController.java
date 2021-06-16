@@ -34,38 +34,51 @@ public class ChatController {
     }
 
     @GetMapping
-    public ModelAndView chatPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        /*if (!(userServices.findById(sessionScopeId.getId()).get().getAliveState())) {
-            return new ModelAndView("redirect:" + "/login");
-        }*/
+    public ModelAndView chatPage(Model model) throws IOException {
         insert_name_user(model);
         return new ModelAndView("chatPage");
     }
 
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> new_message(@RequestBody String message) {
-
+    public List<MessagePair> new_message(@RequestBody String message,HttpServletRequest request) {
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
         return add_authors(messageServices.get5Message());
     }
+
     @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
-        return userServices.getConnectedUsers();
+        return userServices.findAll();
     }
+
     @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
+        long id = sessionScopeId.getId();
         return add_authors(messageServices.get5Message());
     }
+
     @RequestMapping(value = "/searchByMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> getAllMessages(@RequestBody String message)  {
+    public List<MessagePair> getAllMessages(@RequestBody String message) {
         return add_authors(messageServices.findAllByMessage(message));
     }
+
+    @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MessagePair> searchByUser(@RequestBody String userName) {
+
+        var list = userName.split(" ");
+        if (list.length < 2) {
+            return add_authors(messageServices.getUserMessages(userServices.findByFirstName(list[0]).getId()));
+        } else {
+            return add_authors(messageServices.getUserMessages(userServices.findByFirstNameAndLastName(list[0], list[1]).getId()));
+        }
+    }
+
     private void insert_name_user(Model model) {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());
@@ -73,9 +86,12 @@ public class ChatController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logOut() {
-        userServices.findById(sessionScopeId.getId()).get().setAliveState(false);     //after logout user dead
-        return new ModelAndView("redirect:" + "/login");
+    public ModelAndView logOut(HttpServletRequest req) {
+        var s=userServices.findById(sessionScopeId.getId()).get();
+        s.setAliveState(false);
+        userServices.addUser(s,false);
+        req.getSession(false).invalidate();
+        return new ModelAndView("redirect:" + "/");
     }
 
 

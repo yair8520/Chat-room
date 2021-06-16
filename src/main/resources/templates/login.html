@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -11,7 +11,7 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>Login</title>
 
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
 
 
 </head>
@@ -25,15 +25,11 @@
         <hr>
         <label for="firstName"><b>First name</b></label>
         <input type="text" placeholder="Enter first name" name="firstName" id="firstName" >
-<!--
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
--->
+        <span  th:text="${dupUser}" class="text-danger"></span><br>
 
-        <label for="lastName"><b>Second name</b></label>
+        <label for="lastName"><b>Last name</b></label>
         <input type="text" placeholder="Enter second name" name="lastName" id="lastName">
-<!--
-        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
--->
+
 
     </div>
     <input type="submit" value="Submit">

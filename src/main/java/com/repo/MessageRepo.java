@@ -9,10 +9,11 @@ import java.util.List;
 public interface MessageRepo extends JpaRepository<Message,Long> {
 
    //  List<Message> findById(long id);
-     List<Message> findAllByOrderById();
-     List<Message> findFirst5ByOrderByDateTimeDesc();
+     List<Message> findFirst5ByOrderByIdDesc();
      List<Message> findAllByUserId(long id);
     List<Message> findAllByMessage(String message);
+    /*List<Message> findAllByUserName(String );*/
+
 
 }
 

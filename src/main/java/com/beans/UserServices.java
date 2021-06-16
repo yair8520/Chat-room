@@ -23,16 +23,19 @@ public class UserServices {
         return this.userRepo.findAll();
     }
 
-    public long addUser(User user) {
+    public long addUser(User user,boolean alive) {
         long id=this.userRepo.save(user).getId();
-        setAlive(id);                                     //after login alive true
+        setAlive(id,alive);                                     //after login alive true
         return id;
     }
 
-    public void setAlive(long id)
+    public void setAlive(long id,boolean alive)
     {
-        findById(id).get().setAliveState(true);
+       var s=findById(id).get();
+       s.setAliveState(alive);
+        userRepo.save(s);
     }
+
     public List<User> findAll() {
         return userRepo.findAll();
     }
@@ -41,5 +44,17 @@ public class UserServices {
         return this.userRepo.findById(id);
     }
 
-    public List<User> getConnectedUsers() { return userRepo.findByAlive(true); }
+    public List<User> getConnectedUsers() {
+        return userRepo.findByAlive(true);
+    }
+    public User findByFirstNameAndLastName(String firstName, String lastName) {
+        return userRepo.findByFirstNameAndLastName(firstName,lastName);
+    }
+    public User findByFirstName(String firstName) {
+        var result=userRepo.findByFirstName(firstName);
+        if(result==null)
+            return new User();
+        else return result;
+    }
+
 }

@@ -10,6 +10,7 @@ public interface UserRepo extends JpaRepository<User,Long> {
 
     // List<User> findByLastName(String lastname);
     User findByFirstNameAndLastName(String firstname, String lastname);
+    User findByFirstName(String firstName);
 
     List<User> findByAlive(boolean alive);
 

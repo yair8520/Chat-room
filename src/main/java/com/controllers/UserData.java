@@ -1,11 +1,11 @@
 package com.controllers;
 
 
-import org.springframework.stereotype.Component;
 
-@Component(value="id")
-public class UserData {
-    long id;
+import java.io.Serializable;
+
+public class UserData implements Serializable {
+    long id=-1;
 
     public long getId() {
         return id;
