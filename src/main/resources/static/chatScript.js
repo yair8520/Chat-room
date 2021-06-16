@@ -132,22 +132,16 @@
 
                 if(data[i].userId==user_id) {
                     new_message.className = "chat-right";
-                    chatAvatar.className = "chat-avatar-right";
-
                     new_message.append(text);
                     new_message.append(chatAvatar);
                 }
                 else
                 {
                     new_message.className = "chat-left";
-                    chatAvatar.className = "chat-avatar-left";
-
                     new_message.append(chatAvatar);
                     new_message.append(text);
                 }
-
-
-
+                chatAvatar.className = "chat-avatar";
 
                 target.append(new_message);
             }

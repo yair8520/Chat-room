@@ -88,12 +88,6 @@ public class ChatController {
         }
     }
 
-    private void insert_name_user(Model model) {
-        Optional<User> s = this.userServices.findById(sessionScopeId.getId());
-        model.addAttribute("f_name", s.get().getFirstName());
-        model.addAttribute("l_name", s.get().getLastName());
-        model.addAttribute("id_user",sessionScopeId.getId());
-    }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logOut(HttpServletRequest req) {
@@ -104,6 +98,12 @@ public class ChatController {
         return new ModelAndView("redirect:" + "/");
     }
 
+    private void insert_name_user(Model model) {
+        Optional<User> s = this.userServices.findById(sessionScopeId.getId());
+        model.addAttribute("f_name", s.get().getFirstName());
+        model.addAttribute("l_name", s.get().getLastName());
+        model.addAttribute("id_user",sessionScopeId.getId());
+    }
 
     private List<MessagePair> add_authors(List<Message> s) {
         List<MessagePair> authorAndMessage = new Vector<MessagePair>();

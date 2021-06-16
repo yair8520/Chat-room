@@ -39,14 +39,23 @@ public class loginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
-        if (userServices.findByFirstNameAndLastName(first_name, last_name) == null ||
-                userServices.findByFirstNameAndLastName(first_name, last_name).getAliveState() == false) {
-            User user = new User(first_name, last_name);
+        var user=userServices.findByFirstNameAndLastName(first_name, last_name);
+        if ( user == null)
+        {
+            user = new User(first_name, last_name);
             long id = this.userServices.addUser(user, true);
             sessionScopeId.setId(id);
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
-        } else {
+
+        }else if(user.getAliveState() == false)
+        {
+            long id= userServices.addUser(user,true);
+            sessionScopeId.setId(id);
+            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+            return modelAndView;
+        }
+        else {
             ModelAndView modelAndView = new ModelAndView("login");
             modelAndView.addObject("dupUser", "The name is registered in the system. Please select a different name");
             return modelAndView;
