@@ -6,12 +6,12 @@
 
 
         function init() {
-            /*setInterval(() => {
+            setInterval(() => {
                 getAllMessages();
             }, 10000);//every 10 sec fetch list
             setInterval(() => {
                 getConnectedUsers();
-            }, 10000);//every 10 sec fetch ConnectedUsers*/
+            }, 10000);//every 10 sec fetch ConnectedUsers
 
             getAllMessages();
             getConnectedUsers();
@@ -67,13 +67,10 @@
         function displayList(data) {
             var target = document.getElementById("wall");
             destroyChildNodes(target)
-
+            var user_id=document.getElementById("id_user").innerText;
             for (let i = 0; i < data.length; i++) {
-
-                let new_message = document.createElement("li");
-                new_message.className = "chat-left";
                 let chatAvatar = document.createElement("div");
-                chatAvatar.className = "chat-avatar";
+                let new_message = document.createElement("li");
 
                 let chatName = document.createElement("div");
                 chatName.innerText=(data[i].author).toString()
@@ -84,8 +81,23 @@
                 text.className = "chat-text";
                 text.innerText = ( data[i].message).toString();
 
-                new_message.append(chatAvatar);
-                new_message.append(text);
+                if(data[i].userId==user_id) {
+                    new_message.className = "chat-right";
+                    chatAvatar.className = "chat-avatar-right";
+
+                    new_message.append(text);
+                    new_message.append(chatAvatar);
+                }
+                else
+                {
+                    new_message.className = "chat-left";
+                    chatAvatar.className = "chat-avatar-left";
+
+                    new_message.append(chatAvatar);
+                    new_message.append(text);
+                }
+
+
 
 
                 target.append(new_message);

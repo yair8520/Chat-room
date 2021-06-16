@@ -83,6 +83,7 @@ public class ChatController {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());
         model.addAttribute("l_name", s.get().getLastName());
+        model.addAttribute("id_user",sessionScopeId.getId());
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -100,7 +101,7 @@ public class ChatController {
         var fiveMessages = s;
         for (var message : fiveMessages) {
             var author = userServices.findById(message.getuserId());
-            var ma = new MessagePair(message.getMessage(), author.get().toString());
+            var ma = new MessagePair(message.getMessage(), author.get().toString(),message.getuserId());
             authorAndMessage.add(ma);
         }
         return authorAndMessage;
