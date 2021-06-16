@@ -1,4 +1,5 @@
 package com;
+import com.controllers.AjaxInterceptor;
 import com.controllers.ChatInterceptor;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,7 +12,8 @@ public class FiltersConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-       registry.addInterceptor(new ChatInterceptor()).addPathPatterns("/chat/**");
+       registry.addInterceptor(new ChatInterceptor()).addPathPatterns("/chat");
+       registry.addInterceptor(new AjaxInterceptor()).addPathPatterns("/chat/**");
     }
 
 }
