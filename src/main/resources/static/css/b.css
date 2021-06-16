@@ -347,7 +347,7 @@ body{margin-top:20px;}
     border-top: 1px solid white;
 }
 
-ul {
+.ul-wall {
     list-style-type: none;
     margin: 0;
     padding: 0;

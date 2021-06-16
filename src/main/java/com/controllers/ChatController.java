@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.*;
@@ -41,7 +40,7 @@ public class ChatController {
 
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> new_message(@RequestBody String message,HttpServletRequest request) {
+    public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
@@ -69,32 +68,24 @@ public class ChatController {
 
     @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
     @ResponseBody
-    public List<MessagePair> searchByUser(@RequestBody String userName) {
+    public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
+
+       List<List<MessagePair>>  result = new Vector<>();
 
         var list = userName.split(" ");
-        if (list.length < 2) {
-            return add_authors(messageServices.getUserMessages(userServices.findByFirstName(list[0]).getId()));
+        if (list.length < 2)
+        {
+            List<User> a = userServices.findByFirstName(list[0]);
+            for(var i :a)
+                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            return result;
         } else {
-            return add_authors(messageServices.getUserMessages(userServices.findByFirstNameAndLastName(list[0], list[1]).getId()));
+            List<User> b =userServices.findAllByFirstNameAndLastName(list[0], list[1]);
+            for(var i :b)
+                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            return result;
         }
     }
-
-    private void insert_name_user(Model model) {
-        Optional<User> s = this.userServices.findById(sessionScopeId.getId());
-        model.addAttribute("f_name", s.get().getFirstName());
-        model.addAttribute("l_name", s.get().getLastName());
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logOut(HttpServletRequest req) {
-        var s=userServices.findById(sessionScopeId.getId()).get();
-        s.setAliveState(false);
-        userServices.addUser(s,false);
-        req.getSession(false).invalidate();
-        return new ModelAndView("redirect:" + "/");
-    }
-
-
     private List<MessagePair> add_authors(List<Message> s) {
         List<MessagePair> authorAndMessage = new Vector<MessagePair>();
         var fiveMessages = s;
@@ -105,5 +96,26 @@ public class ChatController {
         }
         return authorAndMessage;
     }
+
+
+
+
+
+
+
+
+    private void insert_name_user(Model model) {
+        Optional<User> s = this.userServices.findById(sessionScopeId.getId());
+        model.addAttribute("f_name", s.get().getFirstName());
+        model.addAttribute("l_name", s.get().getLastName());
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logOut(HttpServletRequest req) {
+        req.getSession(false).invalidate();
+        return new ModelAndView("redirect:" + "/");
+    }
+
+
 
 }
