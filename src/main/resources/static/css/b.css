@@ -317,12 +317,20 @@ body{margin-top:20px;}
     .chat-container li.chat-left .chat-name {
         margin-left: 5px;
     }
-    .chat-container li.chat-right .chat-avatar {
+    .chat-container li.chat-right .chat-avatar-right {
         order: -1;
         margin: 0 0 5px 0;
         align-items: center;
         display: flex;
         justify-content: right;
+        flex-direction: row-reverse;
+    }
+    .chat-container li.chat-right .chat-avatar-left {
+        order: -1;
+        margin: 0 0 5px 0;
+        align-items: center;
+        display: flex;
+        justify-content: left;
         flex-direction: row-reverse;
     }
     .chat-container li.chat-right .chat-hour {
