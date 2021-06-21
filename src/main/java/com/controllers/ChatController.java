@@ -22,7 +22,6 @@ import java.util.*;
  * The type Chat controller.
  */
 @Controller
-@RequestMapping(value = "/chat")
 public class ChatController {
 
     private final UserServices userServices;
@@ -49,7 +48,6 @@ public class ChatController {
      * @return the model and view
      * @throws IOException the io exception
      */
-    @GetMapping
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public ModelAndView chatPage(Model model) throws IOException {
         insert_name_user(model);
@@ -63,7 +61,7 @@ public class ChatController {
      * @param request the request
      * @return the list
      */
-    @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
+
     @RequestMapping(value = "/repo/newMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
@@ -79,7 +77,6 @@ public class ChatController {
      * @return the connected users
      * @throws IOException the io exception
      */
-    @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
     @RequestMapping(value = "/repo/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
@@ -92,7 +89,7 @@ public class ChatController {
      * @return the all messages
      * @throws IOException the io exception
      */
-    @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
+
     @RequestMapping(value = "/repo/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
@@ -118,7 +115,7 @@ public class ChatController {
      * @param userName the user name
      * @return the list
      */
-    @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
+
     @RequestMapping(value = "/repo/searchByUser", method = RequestMethod.POST)
     @ResponseBody
     public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
