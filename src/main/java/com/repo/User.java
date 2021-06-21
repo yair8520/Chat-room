@@ -2,6 +2,8 @@ package com.repo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table
@@ -14,6 +16,9 @@ public class User {
     private String firstName;
     @NotEmpty(message = "lastName is mandatory")
     private String lastName;
+
+    @Basic
+    private Timestamp sqlTimestamp;
 
     public boolean getAliveState() {
         return alive;
@@ -28,6 +33,7 @@ public class User {
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        sqlTimestamp=new Timestamp(System.currentTimeMillis());
     }
 
     public User() {}
@@ -56,6 +62,15 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Timestamp getSqlTimestamp() {
+        return sqlTimestamp;
+    }
+
+    public void setSqlTimestamp(Timestamp sqlTimestamp) {
+        this.sqlTimestamp = sqlTimestamp;
+    }
+
 
     @Override
     public String toString() {

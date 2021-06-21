@@ -6,6 +6,7 @@ import com.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +60,35 @@ public class UserServices {
         if(result==null)
             return (List<User>) new User();
         else return result;
+    }
+
+    public void checkConnectingUser()
+    {
+        var users=getConnectedUsers();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        for (var i:users)
+        {
+            var distance=timestamp.getSeconds()-i.getSqlTimestamp().getSeconds();
+            if(distance>12)
+            {
+                System.out.println("Delete the user!!!");
+                setAlive(i.getId(),false);
+            }
+        }
+    }
+
+    public void updateTime(long id)
+    {
+        var user= this.findById(id);
+        var u = user.get();
+        u.setSqlTimestamp(new Timestamp(System.currentTimeMillis()));
+        userRepo.save(u);
+    }
+
+    public void UpdateUser(long id)
+    {
+        updateTime(id);
+        checkConnectingUser();
     }
 
 }

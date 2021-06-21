@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 
 @Controller
@@ -27,9 +27,9 @@ public class loginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getLoginPage(Model model, HttpServletRequest request) {
-
-        if(request.getSession(false)!=null) {
-
+        var x=sessionScopeId.getId();
+        if(sessionScopeId.getId()!=-1)
+        {
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
         }
