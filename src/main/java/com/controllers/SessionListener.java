@@ -16,6 +16,7 @@ public class SessionListener implements HttpSessionListener {
     }
 
     public void sessionDestroyed(final HttpSessionEvent event) {
+        System.out.println("i am here!!");
 
         System.out.print("sessionDestroyed");
         UserData q = (UserData) event.getSession().getAttribute("scopedTarget.id");

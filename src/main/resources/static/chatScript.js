@@ -41,6 +41,7 @@
                     alert("fetch err")
                 });
         }
+        //=============================================================================================================
 
         function addMessage(event) {
             event.preventDefault();
@@ -90,6 +91,8 @@
                 });
 
         }
+        //=============================================================================================================
+
         function displayListByUser(data)
         {
             var target = document.getElementById("search_message_list");
@@ -146,6 +149,7 @@
                 target.append(new_message);
             }
         }
+        //=============================================================================================================
 
         function diplayUsersList(data) {
             var target = document.getElementById("connecting_list");
@@ -175,6 +179,7 @@
             }
 
         }
+        //=============================================================================================================
 
 
         function getConnectedUsers() {

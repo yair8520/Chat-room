@@ -29,6 +29,7 @@ public class loginController {
     public ModelAndView getLoginPage(Model model, HttpServletRequest request) {
 
         if(request.getSession(false)!=null) {
+
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
         }
@@ -40,25 +41,27 @@ public class loginController {
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
         var user=userServices.findByFirstNameAndLastName(first_name, last_name);
-        if ( user == null)
+        ModelAndView modelAndView;
+        if (user == null)
         {
             user = new User(first_name, last_name);
             long id = this.userServices.addUser(user, true);
             sessionScopeId.setId(id);
-            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
-            return modelAndView;
+            modelAndView = new ModelAndView("redirect:/chat");
 
         }else if(user.getAliveState() == false||user.getAliveState() == true)
         {
             long id= userServices.addUser(user,true);
             sessionScopeId.setId(id);
-            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
-            return modelAndView;
+            modelAndView = new ModelAndView("redirect:/chat");
+
         }
         else {
-            ModelAndView modelAndView = new ModelAndView("login");
+            modelAndView = new ModelAndView("login");
             modelAndView.addObject("dupUser", "The name is registered in the system. Please select a different name");
-            return modelAndView;
+
         }
+        return modelAndView;
     }
+
 }
