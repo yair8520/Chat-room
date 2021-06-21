@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AjaxInterceptor implements HandlerInterceptor {
 
-    @Resource(name = "id")
-    UserData sessionScopeId;
+
     public AjaxInterceptor(){}
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
         if (request.getSession(false) == null) {
-            response.sendError(404);
-            System.out.print("-------- 404 error true---  ");
+           response.sendError(404);
+            System.out.print("-------- AjaxInterceptor 404 ---  ");
             return false;
         }
-        System.out.print("-------- 404 error false  ---    ");
+        System.out.print("-------- AjaxInterceptor OK  ---    ");
         return true;
     }
 

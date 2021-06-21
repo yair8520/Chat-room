@@ -52,7 +52,7 @@
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
-                        window.location.replace('/error');
+                        window.location.replace('/error/notLoggedIn');
                         return;
                     }
                     response.json().then(function (data) {
