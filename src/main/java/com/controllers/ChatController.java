@@ -26,6 +26,9 @@ public class ChatController {
 
     private final UserServices userServices;
     private final MessageServices messageServices;
+    /**
+     * The Session scope id.
+     */
     @Resource(name = "id")
     UserData sessionScopeId;
 
@@ -59,9 +62,8 @@ public class ChatController {
      *
      * @param message the message
      * @param request the request
-     * @return the list
+     * @return the list of message
      */
-
     @RequestMapping(value = "/repo/newMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
@@ -89,7 +91,6 @@ public class ChatController {
      * @return the all messages
      * @throws IOException the io exception
      */
-
     @RequestMapping(value = "/repo/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
@@ -113,9 +114,8 @@ public class ChatController {
      * Search by user list.
      *
      * @param userName the user name
-     * @return the list
+     * @return the list of messages
      */
-
     @RequestMapping(value = "/repo/searchByUser", method = RequestMethod.POST)
     @ResponseBody
     public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
@@ -144,13 +144,17 @@ public class ChatController {
      * @param req the req
      * @return the model and view
      */
-
     @RequestMapping(value = "/chat/logout", method = RequestMethod.GET)
     public ModelAndView logOut(HttpServletRequest req) {
         req.getSession().invalidate();
         return new ModelAndView("redirect:" + "/");
     }
 
+    /**
+     * Insert name user.
+     *
+     * @param model the model
+     */
     private void insert_name_user(Model model) {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());
@@ -158,6 +162,12 @@ public class ChatController {
         model.addAttribute("id_user",sessionScopeId.getId());
     }
 
+    /**
+     * Add authors list.
+     *
+     * @param s the list of messages
+     * @return the list
+     */
     private List<MessagePair> add_authors(List<Message> s) {
         List<MessagePair> authorAndMessage = new Vector<MessagePair>();
         var fiveMessages = s;

@@ -7,8 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Ajax interceptor.
+ */
 public class AjaxInterceptor implements HandlerInterceptor {
 
+    /**
+     * Instantiates a new Ajax interceptor.
+     */
     public AjaxInterceptor(){}
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

@@ -6,8 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * The type Chat interceptor.
+ */
 public class ChatInterceptor implements HandlerInterceptor {
 
+    /**
+     * Instantiates a new Chat interceptor.
+     */
     public ChatInterceptor() {
     }
 

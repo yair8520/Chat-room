@@ -9,17 +9,38 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Message services.
+ */
 @Service
 public class MessageServices {
+    /**
+     * The Message repo.
+     */
     private final MessageRepo messageRepo;
 
+    /**
+     * Instantiates a new Message services.
+     *
+     * @param messageRepo the message repo
+     */
     @Autowired
     public MessageServices(MessageRepo messageRepo) {
         this.messageRepo = messageRepo;
     }
 
+    /**
+     * Add message.
+     *
+     * @param message the message to add
+     */
     public void addMessage(Message message){messageRepo.save(message);}
 
+    /**
+     * Gets 5 message.
+     *
+     * @return the 5 message
+     */
     public List<Message> get5Message() {
 
         var s= messageRepo.findFirst5ByOrderByIdDesc();
@@ -27,13 +48,22 @@ public class MessageServices {
         return  s;
     }
 
+    /**
+     * Gets user messages.
+     *
+     * @param id the id of user
+     * @return the user messages
+     */
     public List<Message> getUserMessages(long id) {
         return messageRepo.findAllByUserId(id);
     }
 
+    /**
+     * Find all by message list.
+     *
+     * @param message the message
+     * @return the list
+     */
     public List<Message> findAllByMessage(String message){return messageRepo.findAllByMessage(message);}
 
-    /*public List<Message> findAllByUserName(String userName) {
-        messageRepo.findAllByUserName(userName);
-    }*/
 }

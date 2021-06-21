@@ -6,12 +6,21 @@ import org.springframework.stereotype.Component;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+/**
+ * The type Session listener.
+ */
 @WebListener
 @Component
 public class SessionListener implements HttpSessionListener {
 
     private  UserServices userServices;
 
+    /**
+     * Instantiates a new Session listener.
+     *
+     * @param userServices the user services
+     */
     public SessionListener(UserServices userServices) {
         super();
         this.userServices = userServices;
