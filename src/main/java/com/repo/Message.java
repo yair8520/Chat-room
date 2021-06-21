@@ -1,7 +1,11 @@
-package controllers;
+package com.repo;
 
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table
@@ -9,17 +13,17 @@ public class Message {
 
     public Message() {
     }
-
     private String message;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long user_id;
+    private long userId;
 
-    public Message(String message, long user_id) {
+
+    public Message(String message, long userId) {
         this.message = message;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 
     public String getMessage() {
@@ -38,7 +42,7 @@ public class Message {
         this.id = id;
     }
 
-    public long getUser_id() {return user_id; }
+    public long getuserId() {return userId; }
 
-    public void setUser_id(long user_id) { this.user_id = user_id; }
+    public void setuserId(long user_id) { this.userId = userId; }
 }

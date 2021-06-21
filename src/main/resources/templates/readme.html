@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Readme</title>
+</head>
+<body>
+<!-- Main content -->
+<h1>chat - Exercise 4</h1>
+<h2>Authors</h2>
+<ul>
+    <li>yair gabay</li>
+    <li>ID 312244163</li>
+    <li>yairga@edu.hac.ac.il</li>
+</ul>
+<ul>
+    <li>Netanel Kahanyan</li>
+    <li>ID 314715335</li>
+    <li>netanelka@edu.hac.ac.il</li>
+</ul>
+ <a href="api/com/example/ex3/package-summary.html"> Click for documentation</a>
+
+
+<h2>Description</h2>
+The site supports multiple users
+Each user will be saved in the database along with his messages.
+
+<h2>Execution</h2>
+<p>
+    At each login the program will check if there is already a user with this name,<br>
+    If it is connected - an error message will be issued<br>
+    If not then the same user will be added to the database and log in with that name<br><br>
+    The chat page will show all the registered users of the website Connected or not and also the list of messages<br>
+    These lists will be provided every 10 seconds by ajax calls<br><br>
+
+    A logged in user will be displayed with a green dot<br>
+    An offline user will be displayed with a red dot<br>
+
+<ul> Search tab -You can search for messages by
+    <li> 1. The message itself.</li>
+    <li> 2. First name.</li>
+    <li> 3. First name + last name.</li>
+    The result will be a list of messages that matches the query
+</ul>
+<br>
+logout-In order to return to chat with the same user it is necessary to enter the details again<br>
+At each stage of the program each AJAX call and each chat access <br>
+will implement the filter that will check if there is a SESSION<br>
+</p>
+<br>All pages are protected<br>
+<div class="row">
+    <form action="/chat" method="get">
+        <input id="return" type="submit" value="return">
+    </form>
+</div>
+
+
+<address>Submitted 24 may 2021 </address>
+</body>
+</html>
