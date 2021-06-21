@@ -6,7 +6,7 @@
 
 
         function init() {
-            setInterval(() => {
+           setInterval(() => {
                 getAllMessages();
             }, 10000);//every 10 sec fetch list
             setInterval(() => {
@@ -26,11 +26,12 @@
 
         function getAllMessages() {
 
-            fetch('/chat/getAllMessages', {method: 'get', headers: {'Content-Type': 'application/json'}})
+            console.log("getAllMessages")
+            fetch('/repo/getAllMessages', {method: 'get', headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
-                        window.location.replace('/error');
+                        window.location.replace('/error/notLoggedIn');
                         return;
                     }
                     response.json().then(function (data) {
@@ -47,7 +48,7 @@
             let message = document.getElementById("message_input").value
             document.getElementById("message_input").value = ""
 
-            fetch('/chat/newMessage', {method: 'POST', body: message, headers: {'Content-Type': 'application/json'}})
+            fetch('/repo/newMessage', {method: 'POST', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
@@ -73,12 +74,12 @@
                 alert("please enter a valid string!");
                 return;
             }
-            let url = '/chat/' + this.id
+            let url = '/repo/' + this.id
             fetch(url, {method: 'post', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
-                        window.location.replace('/error');
+                        window.location.replace('/error/notLoggedIn');
                         return;
                     }
                     response.json().then(function (data) {
@@ -178,14 +179,14 @@
 
 
         function getConnectedUsers() {
-            fetch('/chat/getConnectedUsers', {
+            fetch('/repo/getConnectedUsers', {
                 method: 'get',
                 headers: {'Content-Type': 'application/json'}
             })
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
-                        window.location.replace('/error');
+                        window.location.replace('/error/notLoggedIn');
                         return;
                     }
                     response.json().then(function (data) {
@@ -207,12 +208,12 @@
                 alert("please enter a valid string!");
                 return;
             }
-            let url = '/chat/' + this.id
+            let url = '/repo/' + this.id
             fetch(url, {method: 'post', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
                         alert("Looks like there was a problem");
-                        window.location.replace('/error');
+                        window.location.replace('/error/notLoggedIn');
                         return;
                     }
                     response.json().then(function (data) {

@@ -23,8 +23,7 @@ import javax.servlet.http.HttpSessionListener;
 public class BeanConfiguration {
 
 
-    private final UserServices userServices;
-
+    private  UserServices userServices;
     @Autowired
     public BeanConfiguration(UserServices userServices) {
         this.userServices = userServices;
@@ -42,9 +41,5 @@ public class BeanConfiguration {
 
         listenerRegBean.setListener(new SessionListener(userServices));
         return listenerRegBean;
-    }
-    @Bean
-    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener(userServices));
     }
 }

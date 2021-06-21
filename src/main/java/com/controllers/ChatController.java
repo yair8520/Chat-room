@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "/chat")
 public class ChatController {
 
     private final UserServices userServices;
@@ -33,13 +32,13 @@ public class ChatController {
         this.messageServices = messageServices;
     }
 
-    @GetMapping
+    @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public ModelAndView chatPage(Model model) throws IOException {
         insert_name_user(model);
         return new ModelAndView("chatPage");
     }
 
-    @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/newMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
         long id = sessionScopeId.getId();
@@ -48,26 +47,26 @@ public class ChatController {
         return add_authors(messageServices.get5Message());
     }
 
-    @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
+    @RequestMapping(value = "/repo/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
         return userServices.findAll();
     }
 
-    @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
+    @RequestMapping(value = "/repo/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
         long id = sessionScopeId.getId();
         return add_authors(messageServices.get5Message());
     }
 
-    @RequestMapping(value = "/searchByMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/searchByMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> getAllMessages(@RequestBody String message) {
         return add_authors(messageServices.findAllByMessage(message));
     }
 
-    @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/searchByUser", method = RequestMethod.POST)
     @ResponseBody
     public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
 
@@ -88,13 +87,9 @@ public class ChatController {
         }
     }
 
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/chat/logout", method = RequestMethod.GET)
     public ModelAndView logOut(HttpServletRequest req) {
-        var s=userServices.findById(sessionScopeId.getId()).get();
-        s.setAliveState(false);
-        userServices.addUser(s,false);
-        req.getSession(false).invalidate();
+        req.getSession().invalidate();
         return new ModelAndView("redirect:" + "/");
     }
 

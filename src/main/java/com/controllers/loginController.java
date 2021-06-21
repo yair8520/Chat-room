@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 public class loginController {
     private final UserServices userServices;
 
-
     @Resource(name = "id")
     private UserData sessionScopeId;
 
@@ -35,7 +34,6 @@ public class loginController {
         return new ModelAndView("login");
     }
 
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
@@ -48,7 +46,7 @@ public class loginController {
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
 
-        }else if(user.getAliveState() == false||user.getAliveState() == true)
+        }else if(user.getAliveState() == false)
         {
             long id= userServices.addUser(user,true);
             sessionScopeId.setId(id);
@@ -57,7 +55,8 @@ public class loginController {
         }
         else {
             ModelAndView modelAndView = new ModelAndView("login");
-            modelAndView.addObject("dupUser", "The name is registered in the system. Please select a different name");
+            modelAndView.addObject("dupUser",
+                    "The name is registered in the system. Please select a different name");
             return modelAndView;
         }
     }

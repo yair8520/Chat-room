@@ -8,7 +8,6 @@ import java.util.List;
 @Repository
 public interface UserRepo extends JpaRepository<User,Long> {
 
-    // List<User> findByLastName(String lastname);
     List<User> findAllByFirstNameAndLastName(String firstname, String lastname);
     User findByFirstNameAndLastName(String firstname, String lastname);
     List<User> findAllByFirstName(String firstName);
