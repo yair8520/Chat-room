@@ -48,7 +48,7 @@ public class loginController {
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
 
-        }else if(user.getAliveState() == false)
+        }else if(user.getAliveState() == false||user.getAliveState() == true)
         {
             long id= userServices.addUser(user,true);
             sessionScopeId.setId(id);
