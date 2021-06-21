@@ -21,10 +21,22 @@ public class BeanConfiguration {
 
 
     private  UserServices userServices;
+
+    /**
+     * Instantiates a new Bean configuration.
+     *
+     * @param userServices the user services
+     */
     @Autowired
     public BeanConfiguration(UserServices userServices) {
         this.userServices = userServices;
     }
+
+    /**
+     * Id user data.
+     *
+     * @return the user data
+     */
     /* session scope */
     @Bean
     @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -32,6 +44,12 @@ public class BeanConfiguration {
         System.out.println("BeanConfiguration");
         return new UserData();
     }
+
+    /**
+     * Session listener with metrics servlet listener registration bean.
+     *
+     * @return the servlet listener registration bean
+     */
     @Bean
     public ServletListenerRegistrationBean<SessionListener> sessionListenerWithMetrics() {
         ServletListenerRegistrationBean<SessionListener> listenerRegBean = new ServletListenerRegistrationBean<>();

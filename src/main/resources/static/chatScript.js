@@ -23,7 +23,7 @@
         }
 
         //=============================================================================================================
-
+        //the function get all messages from server
         function getAllMessages() {
 
             console.log("getAllMessages")
@@ -43,7 +43,7 @@
                 });
         }
         //=============================================================================================================
-
+        //the function add a new message to db
         function addMessage(event) {
             event.preventDefault();
             let message = document.getElementById("message_input").value
@@ -66,6 +66,7 @@
         }
 
         //=============================================================================================================
+
         function searchUser()
         {
             let message = document.getElementById("searchInput").value
@@ -93,7 +94,7 @@
 
         }
         //=============================================================================================================
-
+        //show the results of message's search that ordering by user
         function displayListByUser(data)
         {
             var target = document.getElementById("search_message_list");
@@ -117,6 +118,7 @@
             }
         }
         //=============================================================================================================
+        //show list of messages
         function displayList(data) {
             var target = document.getElementById("wall");
             destroyChildNodes(target)
@@ -151,7 +153,7 @@
             }
         }
         //=============================================================================================================
-
+        //show list of users
         function diplayUsersList(data) {
             var target = document.getElementById("connecting_list");
             destroyChildNodes(target);
@@ -181,7 +183,6 @@
 
         }
         //=============================================================================================================
-
 
         function getConnectedUsers() {
             fetch('/repo/getConnectedUsers', {
@@ -228,16 +229,6 @@
                 .catch(function (err) {
                     alert("fetch err")
                 });
-        }
-
-        //=============================================================================================================
-
-        function get_input(object_id) {
-            let input = document.getElementById(object_id).value;
-            if (input.trim() === "" || input === null) {
-                alert("please enter a valid string!");
-            } else
-                return input;
         }
 
         //=============================================================================================================

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * The type Login controller.
+ */
 @Controller
 public class loginController {
     private final UserServices userServices;
@@ -19,11 +22,23 @@ public class loginController {
     @Resource(name = "id")
     private UserData sessionScopeId;
 
+    /**
+     * Instantiates a new Login controller.
+     *
+     * @param userServices the user services
+     */
     @Autowired
     public loginController(UserServices userServices) {
         this.userServices = userServices;
     }
 
+    /**
+     * Gets login page.
+     *
+     * @param model   the model
+     * @param request the request
+     * @return the login page
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getLoginPage(Model model, HttpServletRequest request) {
 
@@ -34,6 +49,13 @@ public class loginController {
         return new ModelAndView("login");
     }
 
+    /**
+     * Sets user.
+     *
+     * @param first_name the first name
+     * @param last_name  the last name
+     * @return the user
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
