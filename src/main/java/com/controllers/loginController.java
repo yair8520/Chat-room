@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
 public class loginController {
     private final UserServices userServices;
-
 
     @Resource(name = "id")
     private UserData sessionScopeId;
@@ -27,41 +26,38 @@ public class loginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getLoginPage(Model model, HttpServletRequest request) {
-        var x=sessionScopeId.getId();
-        if(sessionScopeId.getId()!=-1)
-        {
+
+        if(request.getSession(false)!=null) {
             ModelAndView modelAndView = new ModelAndView("redirect:/chat");
             return modelAndView;
         }
         return new ModelAndView("login");
     }
 
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView setUser(@RequestParam(name = "firstName") String first_name,
                                 @RequestParam(name = "lastName") String last_name) {
         var user=userServices.findByFirstNameAndLastName(first_name, last_name);
-        ModelAndView modelAndView;
-        if (user == null)
+        if ( user == null)
         {
             user = new User(first_name, last_name);
             long id = this.userServices.addUser(user, true);
             sessionScopeId.setId(id);
-            modelAndView = new ModelAndView("redirect:/chat");
+            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+            return modelAndView;
 
-        }else if(user.getAliveState() == false||user.getAliveState() == true)
+        }else if(user.getAliveState() == false)
         {
             long id= userServices.addUser(user,true);
             sessionScopeId.setId(id);
-            modelAndView = new ModelAndView("redirect:/chat");
-
+            ModelAndView modelAndView = new ModelAndView("redirect:/chat");
+            return modelAndView;
         }
         else {
-            modelAndView = new ModelAndView("login");
-            modelAndView.addObject("dupUser", "The name is registered in the system. Please select a different name");
-
+            ModelAndView modelAndView = new ModelAndView("login");
+            modelAndView.addObject("dupUser",
+                    "The name is registered in the system. Please select a different name");
+            return modelAndView;
         }
-        return modelAndView;
     }
-
 }

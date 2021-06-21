@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.web.context.annotation.SessionScope;
-
-import javax.servlet.http.HttpSessionListener;
 
 /**
  * create some com.beans witn various scopes using QUALIFIERS (method names)
@@ -23,8 +20,7 @@ import javax.servlet.http.HttpSessionListener;
 public class BeanConfiguration {
 
 
-    private final UserServices userServices;
-
+    private  UserServices userServices;
     @Autowired
     public BeanConfiguration(UserServices userServices) {
         this.userServices = userServices;
@@ -42,9 +38,5 @@ public class BeanConfiguration {
 
         listenerRegBean.setListener(new SessionListener(userServices));
         return listenerRegBean;
-    }
-    @Bean
-    public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
-        return new ServletListenerRegistrationBean<HttpSessionListener>(new SessionListener(userServices));
     }
 }

@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AjaxInterceptor implements HandlerInterceptor {
 
-
     public AjaxInterceptor(){}
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-
         if (request.getSession(false) == null) {
            response.sendError(404);
             System.out.print("-------- AjaxInterceptor 404 ---  ");
@@ -24,15 +22,4 @@ public class AjaxInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, //
-                           Object handler, ModelAndView modelAndView) throws Exception {
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, //
-                                Object handler, Exception ex) throws Exception {
-
-
-    }
 }

@@ -21,16 +21,33 @@
  <a href="api/com/example/ex3/package-summary.html"> Click for documentation</a>
 
 
-<h2>Execution</h2>
-<p>The site is a chat that allows sending and receiving messages at the same time.<br>
-    Each time a user sends a message / Every 10 seconds the five most recent messages are displayed on the screen,<br>
-    and the current status of the other chat participants (online / offline)<br>
-    <ul>You can disconnect by:
-    <l1>Click on the logout button</l1>
-    <l1>Deleting the cookie-session</l1>
-</ul>
+<h2>Description</h2>
+The site supports multiple users
+Each user will be saved in the database along with his messages.
 
-    <br>All pages are protected<br>
+<h2>Execution</h2>
+<p>
+    At each login the program will check if there is already a user with this name,<br>
+    If it is connected - an error message will be issued<br>
+    If not then the same user will be added to the database and log in with that name<br><br>
+    The chat page will show all the registered users of the website Connected or not and also the list of messages<br>
+    These lists will be provided every 10 seconds by ajax calls<br><br>
+
+    A logged in user will be displayed with a green dot<br>
+    An offline user will be displayed with a red dot<br>
+
+<ul> Search tab -You can search for messages by
+    <li> 1. The message itself.</li>
+    <li> 2. First name.</li>
+    <li> 3. First name + last name.</li>
+    The result will be a list of messages that matches the query
+</ul>
+<br>
+logout-In order to return to chat with the same user it is necessary to enter the details again<br>
+At each stage of the program each AJAX call and each chat access <br>
+will implement the filter that will check if there is a SESSION<br>
+</p>
+<br>All pages are protected<br>
 <div class="row">
     <form action="/chat" method="get">
         <input id="return" type="submit" value="return">

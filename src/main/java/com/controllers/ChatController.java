@@ -50,6 +50,7 @@ public class ChatController {
      * @throws IOException the io exception
      */
     @GetMapping
+    @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public ModelAndView chatPage(Model model) throws IOException {
         insert_name_user(model);
         return new ModelAndView("chatPage");
@@ -63,6 +64,7 @@ public class ChatController {
      * @return the list
      */
     @RequestMapping(value = "/newMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/newMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> new_message(@RequestBody String message, HttpServletRequest request) {
         long id = sessionScopeId.getId();
@@ -78,9 +80,9 @@ public class ChatController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = "/getConnectedUsers", method = RequestMethod.GET)
+    @RequestMapping(value = "/repo/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
-
         return userServices.findAll();
     }
 
@@ -91,6 +93,7 @@ public class ChatController {
      * @throws IOException the io exception
      */
     @RequestMapping(value = "/getAllMessages", method = RequestMethod.GET)
+    @RequestMapping(value = "/repo/getAllMessages", method = RequestMethod.GET)
     @ResponseBody
     public List<MessagePair> getAllMessages() throws IOException {
         userServices.UpdateUser(sessionScopeId.getId());
@@ -103,7 +106,7 @@ public class ChatController {
      * @param message the message
      * @return the all messages
      */
-    @RequestMapping(value = "/searchByMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/searchByMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> getAllMessages(@RequestBody String message) {
         return add_authors(messageServices.findAllByMessage(message));
@@ -116,6 +119,7 @@ public class ChatController {
      * @return the list
      */
     @RequestMapping(value = "/searchByUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/repo/searchByUser", method = RequestMethod.POST)
     @ResponseBody
     public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
 
@@ -143,12 +147,10 @@ public class ChatController {
      * @param req the req
      * @return the model and view
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/chat/logout", method = RequestMethod.GET)
     public ModelAndView logOut(HttpServletRequest req) {
-        var s=userServices.findById(sessionScopeId.getId()).get();
-        s.setAliveState(false);
-        userServices.addUser(s,false);
-        req.getSession(false).invalidate();
+        req.getSession().invalidate();
         return new ModelAndView("redirect:" + "/");
     }
 
