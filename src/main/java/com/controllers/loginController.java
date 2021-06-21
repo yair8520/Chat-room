@@ -42,7 +42,7 @@ public class loginController {
                                 @RequestParam(name = "lastName") String last_name) {
         var user=userServices.findByFirstNameAndLastName(first_name, last_name);
         ModelAndView modelAndView;
-        if ( user == null)
+        if (user == null)
         {
             user = new User(first_name, last_name);
             long id = this.userServices.addUser(user, true);
