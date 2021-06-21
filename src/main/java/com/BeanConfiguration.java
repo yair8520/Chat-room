@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.web.context.annotation.SessionScope;
-
-import javax.servlet.http.HttpSessionListener;
 
 /**
  * create some com.beans witn various scopes using QUALIFIERS (method names)
