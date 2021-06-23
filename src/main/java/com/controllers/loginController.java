@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -34,7 +33,8 @@ public class loginController {
 
     /**
      * Gets login page.
-     *
+     * Checking for an active session is done by HTTP REQUEST,
+     * because every access to the BEAN session will create an unnecessary session
      * @param model   the model
      * @param request the request
      * @return the login page
@@ -49,9 +49,20 @@ public class loginController {
         return new ModelAndView("login");
     }
 
+
+    /**
+     * Gets readme page.
+     *
+     * @return the readme page
+     */
+    @RequestMapping(value = "/readme", method = RequestMethod.GET)
+    public String getReadmePage() {
+        return "readme";
+    }
+
     /**
      * Sets user.
-     *
+     * Takes care of duplication
      * @param first_name the first name
      * @param last_name  the last name
      * @return the user

@@ -139,7 +139,7 @@ public class ChatController {
 
     /**
      * Log out model and view.
-     *
+     * Session destroy
      * @param req the req
      * @return the model and view
      */

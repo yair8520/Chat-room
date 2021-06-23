@@ -49,6 +49,10 @@
             let message = document.getElementById("message_input").value
             document.getElementById("message_input").value = ""
 
+            if (message.trim() === "" || message === null) {
+                alert("please enter a valid string!");
+                return;
+            }
             fetch('/repo/newMessage', {method: 'POST', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {

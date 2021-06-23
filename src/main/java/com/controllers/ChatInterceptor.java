@@ -23,10 +23,8 @@ public class ChatInterceptor implements HandlerInterceptor {
 
         if (request.getSession(false) == null) {
             response.sendRedirect("/error/notLoggedIn");
-            System.out.print("-------- ChatInterceptor session not  existed ---  ");
             return false;
         }
-        System.out.print("-------- ChatInterceptor session  existed!!  ---    ");
         return true;
     }
 

@@ -141,7 +141,6 @@ public class UserServices {
             var distance=timestamp.getSeconds()-i.getSqlTimestamp().getSeconds();
             if(distance>12)
             {
-                System.out.println("Delete the user!!!");
                 setAlive(i.getId(),false);
             }
         }

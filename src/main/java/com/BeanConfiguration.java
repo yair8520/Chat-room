@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
-/**
- * create some com.beans witn various scopes using QUALIFIERS (method names)
- */
 @Configuration
 public class BeanConfiguration {
 
@@ -34,17 +31,15 @@ public class BeanConfiguration {
 
     /**
      * Id user data.
-     *
+     * session scope
      * @return the user data
      */
     /* session scope */
     @Bean
     @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserData id() {
-        System.out.println("BeanConfiguration");
         return new UserData();
     }
-
     /**
      * Session listener with metrics servlet listener registration bean.
      *

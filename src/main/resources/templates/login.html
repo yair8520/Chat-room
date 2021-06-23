@@ -28,11 +28,11 @@
         <p>Please fill in this form to log in into account.</p>
         <hr>
         <label for="firstName"><b>First name</b></label>
-        <input type="text" placeholder="Enter first name" name="firstName" id="firstName" >
+        <input type="text" placeholder="Enter first name" name="firstName" id="firstName" pattern="([\x21-\x7E]+)"  required >
         <span  th:text="${dupUser}" class="text-danger"></span><br>
 
         <label for="lastName"><b>Last name</b></label>
-        <input type="text" placeholder="Enter second name" name="lastName" id="lastName">
+        <input type="text" placeholder="Enter second name" name="lastName" id="lastName" pattern="([\x21-\x7E]+)"  required>
 
         <input type="submit" value="Submit" class="btn btn-success">
     </div>

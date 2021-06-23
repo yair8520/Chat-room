@@ -21,10 +21,8 @@ public class AjaxInterceptor implements HandlerInterceptor {
             throws Exception {
         if (request.getSession(false) == null) {
            response.sendError(404);
-            System.out.print("-------- AjaxInterceptor 404 ---  ");
             return false;
         }
-        System.out.print("-------- AjaxInterceptor OK  ---    ");
         return true;
     }
 
