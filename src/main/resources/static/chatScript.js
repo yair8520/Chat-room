@@ -30,7 +30,6 @@
             fetch('/repo/getAllMessages', {method: 'get', headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
-                        alert("Looks like there was a problem");
                         window.location.replace('/error/notLoggedIn');
                         return;
                     }
@@ -49,14 +48,14 @@
             let message = document.getElementById("message_input").value
             document.getElementById("message_input").value = ""
 
+            document.getElementById("errorMessage").style.display = "none"
             if (message.trim() === "" || message === null) {
-                alert("please enter a valid string!");
+                document.getElementById("errorMessage").style.display = "block"
                 return;
             }
             fetch('/repo/newMessage', {method: 'POST', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
-                        alert("Looks like there was a problem");
                         window.location.replace('/error/notLoggedIn');
                         return;
                     }
@@ -84,7 +83,6 @@
             fetch(url, {method: 'post', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
-                        alert("Looks like there was a problem");
                         window.location.replace('/error/notLoggedIn');
                         return;
                     }
@@ -195,7 +193,6 @@
             })
                 .then(function (response) {
                     if (response.status !== 200) {
-                        alert("Looks like there was a problem");
                         window.location.replace('/error/notLoggedIn');
                         return;
                     }
@@ -222,7 +219,6 @@
             fetch(url, {method: 'post', body: message, headers: {'Content-Type': 'application/json'}})
                 .then(function (response) {
                     if (response.status !== 200) {
-                        alert("Looks like there was a problem");
                         window.location.replace('/error/notLoggedIn');
                         return;
                     }

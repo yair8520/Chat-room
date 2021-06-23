@@ -64,6 +64,7 @@ public class MessageServices {
      * @param message the message
      * @return the list
      */
-    public List<Message> findAllByMessage(String message){return messageRepo.findAllByMessage(message);}
+    public List<Message> findAllByMessageStartingWith(String message){
+        return messageRepo.findAllByMessageStartingWith(message);}
 
 }

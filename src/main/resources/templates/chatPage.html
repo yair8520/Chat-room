@@ -27,7 +27,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
+            <ul class="navbar-nav ml-auto" >
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#my">
+                        Search
+                    </button>
+                </li>
                 <li class="nav-item active">
                     <form action="/readme" method="get">
                         <button type="submit" id="readme" class="btn btn-outline-success">readme</button>
@@ -37,11 +42,6 @@
                     <form action="/chat/logout" method="get">
                         <button type="submit" id="logout" class="btn btn-outline-danger">Logout</button>
                     </form>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#my">
-                        Search
-                    </button>
                 </li>
             </ul>
         </div>
@@ -83,6 +83,7 @@
                                                   placeholder="Type your message here..." id="message_input" ></textarea>
                                         <input type="submit" class="btn btn-primary" value="send"
                                                id="submitButton">
+                                        <div id="errorMessage"  style="display:none"><p style="color: red">please enter a valid string!</p></div>
                                     </form>
                                 </div>
                             </div>

@@ -32,7 +32,7 @@ public interface MessageRepo extends JpaRepository<Message,Long> {
      * @param message the message
      * @return the list
      */
-    List<Message> findAllByMessage(String message);
+    List<Message> findAllByMessageStartingWith(String message);
 
 
 

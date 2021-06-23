@@ -151,7 +151,7 @@ public class UserServices {
      *
      * @param id the id of users
      */
-    public void updateTime(long id)
+    public synchronized  void updateTime(long id)
     {
         var user= this.findById(id);
         var u = user.get();

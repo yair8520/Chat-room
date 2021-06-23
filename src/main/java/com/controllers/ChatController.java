@@ -58,6 +58,7 @@ public class ChatController {
      */
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public ModelAndView chatPage(Model model) throws IOException {
+        userServices.UpdateUser(sessionScopeId.getId());
         insert_name_user(model);
         return new ModelAndView("chatPage");
     }
@@ -75,6 +76,7 @@ public class ChatController {
         long id = sessionScopeId.getId();
         Message new_message = new Message(message, id);
         messageServices.addMessage(new_message);
+        userServices.UpdateUser(sessionScopeId.getId());
         return add_authors(messageServices.get5Message());
     }
 
@@ -87,6 +89,7 @@ public class ChatController {
     @RequestMapping(value = "/repo/getConnectedUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getConnectedUsers() throws IOException {
+        userServices.UpdateUser(sessionScopeId.getId());
         return userServices.findAll();
     }
 
@@ -112,7 +115,8 @@ public class ChatController {
     @RequestMapping(value = "/repo/searchByMessage", method = RequestMethod.POST)
     @ResponseBody
     public List<MessagePair> getAllMessages(@RequestBody String message) {
-        return add_authors(messageServices.findAllByMessage(message));
+        userServices.UpdateUser(sessionScopeId.getId());
+        return add_authors(messageServices.findAllByMessageStartingWith(message));
     }
 
     /**
@@ -124,20 +128,19 @@ public class ChatController {
     @RequestMapping(value = "/repo/searchByUser", method = RequestMethod.POST)
     @ResponseBody
     public List<List<MessagePair>> searchByUser(@RequestBody String userName) {
-
-       List<List<MessagePair>>  result = new Vector<>();
+        userServices.UpdateUser(sessionScopeId.getId());
+        List<List<MessagePair>> result = new Vector<>();
 
         var list = userName.split(" ");
-        if (list.length < 2)
-        {
+        if (list.length < 2) {
             List<User> a = userServices.findByFirstName(list[0]);
-            for(var i :a)
-                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            for (var i : a)
+                result.add(add_authors(messageServices.getUserMessages(i.getId())));
             return result;
         } else {
-            List<User> b =userServices.findAllByFirstNameAndLastName(list[0], list[1]);
-            for(var i :b)
-                result.add( add_authors(messageServices.getUserMessages(i.getId())));
+            List<User> b = userServices.findAllByFirstNameAndLastName(list[0], list[1]);
+            for (var i : b)
+                result.add(add_authors(messageServices.getUserMessages(i.getId())));
             return result;
         }
     }
@@ -165,7 +168,7 @@ public class ChatController {
         Optional<User> s = this.userServices.findById(sessionScopeId.getId());
         model.addAttribute("f_name", s.get().getFirstName());
         model.addAttribute("l_name", s.get().getLastName());
-        model.addAttribute("id_user",sessionScopeId.getId());
+        model.addAttribute("id_user", sessionScopeId.getId());
     }
 
     /**
@@ -179,7 +182,7 @@ public class ChatController {
         var fiveMessages = s;
         for (var message : fiveMessages) {
             var author = userServices.findById(message.getuserId());
-            var ma = new MessagePair(message.getMessage(), author.get().toString(),message.getuserId());
+            var ma = new MessagePair(message.getMessage(), author.get().toString(), message.getuserId());
             authorAndMessage.add(ma);
         }
         return authorAndMessage;
