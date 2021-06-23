@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The type Message services.
+ *  Implements the access functions to a Message's database from MessageRepo
  */
 @Service
 public class MessageServices {

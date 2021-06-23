@@ -53,7 +53,11 @@ public class User {
         this.alive = alive;
     }
 
-    private boolean alive=false; //default dead
+    /**
+     * The Alive.
+     * default dead
+     */
+    boolean alive=false;
 
     /**
      * Instantiates a new User.

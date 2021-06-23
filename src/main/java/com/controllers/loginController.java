@@ -16,8 +16,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class loginController {
+    /**
+     * The User services.
+     */
     private final UserServices userServices;
 
+    /**
+     * The Session scope id.
+     */
     @Resource(name = "id")
     private UserData sessionScopeId;
 
@@ -35,6 +41,7 @@ public class loginController {
      * Gets login page.
      * Checking for an active session is done by HTTP REQUEST,
      * because every access to the BEAN session will create an unnecessary session
+     *
      * @param model   the model
      * @param request the request
      * @return the login page
@@ -63,6 +70,7 @@ public class loginController {
     /**
      * Sets user.
      * Takes care of duplication
+     *
      * @param first_name the first name
      * @param last_name  the last name
      * @return the user

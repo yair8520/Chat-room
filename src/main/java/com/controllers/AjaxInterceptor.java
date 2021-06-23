@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * The type Ajax interceptor.
+ * Catches all calls from ajax
  */
 public class AjaxInterceptor implements HandlerInterceptor {
 

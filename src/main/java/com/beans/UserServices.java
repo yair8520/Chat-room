@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The type User services.
+ * Implements the access functions to a user's database from UserRepo
  */
 @Service
 public class UserServices {

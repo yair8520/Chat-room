@@ -13,11 +13,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
+/**
+ * The type Bean configuration.
+ */
 @Configuration
 public class BeanConfiguration {
 
 
-    private  UserServices userServices;
+    /**
+     * The User services.
+     */
+   private  UserServices userServices;
 
     /**
      * Instantiates a new Bean configuration.
@@ -32,6 +38,7 @@ public class BeanConfiguration {
     /**
      * Id user data.
      * session scope
+     *
      * @return the user data
      */
     /* session scope */
@@ -40,6 +47,7 @@ public class BeanConfiguration {
     public UserData id() {
         return new UserData();
     }
+
     /**
      * Session listener with metrics servlet listener registration bean.
      *

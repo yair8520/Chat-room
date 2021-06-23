@@ -4,8 +4,17 @@ package com.controllers;
  * The type Message pair.
  */
 public class MessagePair {
-    private String message;
+    /**
+     * The Message.
+     */
+    private  String message;
+    /**
+     * The Author.
+     */
     private String author;
+    /**
+     * The User id.
+     */
     private long userId;
 
     /**

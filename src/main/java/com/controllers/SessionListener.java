@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSessionListener;
 @Component
 public class SessionListener implements HttpSessionListener {
 
-    private  UserServices userServices;
+    /**
+     * The User services.
+     */
+    private UserServices userServices;
 
     /**
      * Instantiates a new Session listener.

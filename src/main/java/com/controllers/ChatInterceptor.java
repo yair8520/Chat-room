@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * The type Chat interceptor.
+ * Catches all calls from "/chat"
  */
 public class ChatInterceptor implements HandlerInterceptor {
 

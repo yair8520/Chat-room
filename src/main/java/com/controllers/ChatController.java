@@ -23,7 +23,13 @@ import java.util.*;
 @Controller
 public class ChatController {
 
+    /**
+     * The User services.
+     */
     private final UserServices userServices;
+    /**
+     * The Message services.
+     */
     private final MessageServices messageServices;
     /**
      * The Session scope id.
@@ -140,6 +146,7 @@ public class ChatController {
     /**
      * Log out model and view.
      * Session destroy
+     *
      * @param req the req
      * @return the model and view
      */
